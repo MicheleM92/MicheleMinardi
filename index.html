@@ -494,13 +494,44 @@
       nav { padding: 0 1.25rem; }
       .nav-links { display: none; }
       .container { padding: 0 1.25rem; }
-      #hero { padding: 120px 0 70px; }
+      #hero { padding: 110px 0 50px; }
+      .hero-title { font-size: 2.1rem; line-height: 1.15; margin-bottom: 1rem; }
+      .typewriter-wrap { font-size: 0.95rem; margin-bottom: 1.8rem; }
+      .hero-ctas { flex-direction: column; width: 100%; gap: 0.65rem; }
+      .hero-ctas .btn { width: 100%; justify-content: center; text-align: center; box-sizing: border-box; }
+      
       .proj-grid { grid-template-columns: 1fr; }
-      .what-grid { grid-template-columns: 1fr 1fr; }
-      .stats-bar { grid-template-columns: 1fr 1fr; }
+      .what-grid { grid-template-columns: 1fr; }
+      .stats-bar { grid-template-columns: 1fr 1fr; gap: 1px; }
+      .skills-grid { grid-template-columns: 1fr; }
+
+      /* Mobile Modal System */
+      .modal-overlay { padding: 0.5rem; }
+      .modal-container {
+        padding: 1.4rem 1.1rem 1.2rem;
+        max-height: 94vh;
+        border-radius: 14px;
+      }
+      .modal-close-btn { top: 0.75rem; right: 0.75rem; width: 32px; height: 32px; font-size: 1.1rem; }
+      .demo-header { padding-right: 1.5rem; margin-bottom: 1.1rem; }
+      .demo-title { font-size: 1.3rem; }
+      .demo-subtitle { font-size: 0.82rem; }
+
+      .preset-chips { gap: 0.4rem; }
+      .preset-btn { width: 100%; text-align: center; }
+
+      .sim-grid { grid-template-columns: 1fr; gap: 0.75rem; }
+      .sim-result-box { flex-direction: column; align-items: flex-start; gap: 0.8rem; padding: 1rem; }
+      .workflow-steps { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; }
+      .wf-step { font-size: 0.7rem; padding: 0.5rem 0.2rem; }
+
+      .canvas-wrapper { width: 100%; border-radius: 8px; }
+      #arcade-canvas { width: 100% !important; height: auto !important; aspect-ratio: 2/1; }
+      .arcade-controls { flex-direction: column; gap: 0.5rem; text-align: center; }
     }
     @media (max-width: 400px) {
       .what-grid { grid-template-columns: 1fr; }
+      .stats-bar { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -1442,15 +1473,19 @@ Response (200 OK):
       container.innerHTML = `
         <div class="demo-header" style="margin-bottom:1rem;">
           <h3 class="demo-title">Space Impact Arcade (Canvas HTML5)</h3>
-          <p class="demo-subtitle">${isIt ? 'Usa la tastiera (Freccia Su/Giù o W/S) per muoverti e lo Spazio per sparare alle navi nemiche!' : 'Use keyboard Arrow Keys (or W/S) to move up/down and Spacebar to shoot enemies!'}</p>
+          <p class="demo-subtitle">${isIt ? 'Usa la tastiera (W/S o Freccia Su/Giù + Spazio) oppure i tasti touch in basso!' : 'Use keyboard (W/S or Arrow Keys + Space) or touch controls below!'}</p>
         </div>
 
         <div class="canvas-wrapper">
           <canvas id="arcade-canvas" width="600" height="300"></canvas>
           <div class="arcade-controls">
             <span>Score: <strong id="game-score" style="color:#fff;">0</strong></span>
-            <span>Controls: <strong>W/S</strong> or <strong>Arrows</strong> + <strong>Space</strong></span>
             <button onclick="initArcadeGame()" class="preset-btn" style="padding:2px 10px;">${isIt ? 'Ricomincia' : 'Restart'}</button>
+          </div>
+          <div class="arcade-touch-bar" style="display:flex; width:100%; gap:0.4rem; padding:0.5rem; background:var(--surface); border-top:1px solid var(--border);">
+            <button id="touch-up" class="preset-btn" style="flex:1; padding:0.6rem; font-size:1.1rem;">▲ UP</button>
+            <button id="touch-down" class="preset-btn" style="flex:1; padding:0.6rem; font-size:1.1rem;">▼ DOWN</button>
+            <button id="touch-fire" class="preset-btn" style="flex:1.5; padding:0.6rem; font-size:0.9rem; background:rgba(245,158,11,0.2); border-color:#f59e0b; color:#fff;">🔥 FIRE</button>
           </div>
         </div>
       `;
@@ -1477,10 +1512,14 @@ Response (200 OK):
         stars.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, s: Math.random() * 2 + 0.5 });
       }
 
+      function fireBullet() {
+        bullets.push({ x: player.x + player.w, y: player.y + player.h / 2, r: 3, vx: 7 });
+      }
+
       function onKeyDown(e) {
         keys[e.code] = true;
         if (e.code === 'Space') {
-          bullets.push({ x: player.x + player.w, y: player.y + player.h / 2, r: 3, vx: 7 });
+          fireBullet();
           e.preventDefault();
         }
       }
@@ -1488,6 +1527,23 @@ Response (200 OK):
 
       window.addEventListener('keydown', onKeyDown);
       window.addEventListener('keyup', onKeyUp);
+
+      // Touch controls setup
+      const btnUp = document.getElementById('touch-up');
+      const btnDown = document.getElementById('touch-down');
+      const btnFire = document.getElementById('touch-fire');
+
+      if (btnUp) {
+        btnUp.addEventListener('pointerdown', (e) => { e.preventDefault(); keys['ArrowUp'] = true; });
+        btnUp.addEventListener('pointerup', () => { keys['ArrowUp'] = false; });
+      }
+      if (btnDown) {
+        btnDown.addEventListener('pointerdown', (e) => { e.preventDefault(); keys['ArrowDown'] = true; });
+        btnDown.addEventListener('pointerup', () => { keys['ArrowDown'] = false; });
+      }
+      if (btnFire) {
+        btnFire.addEventListener('pointerdown', (e) => { e.preventDefault(); fireBullet(); });
+      }
 
       let enemyTimer = 0;
 
