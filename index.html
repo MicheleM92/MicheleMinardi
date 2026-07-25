@@ -297,6 +297,114 @@
     }
     .proj-link:hover { color: var(--text); }
 
+    /* ─── DEMO BADGES & BUTTONS ─── */
+    .proj-action-btn {
+      margin-top: 1.1rem; width: 100%; padding: 0.65rem 1rem;
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 8px; color: var(--text); font-size: 0.82rem; font-weight: 500;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      gap: 0.5rem; transition: all 0.25s cubic-bezier(0.16,1,0.3,1);
+      font-family: "Inter", sans-serif;
+    }
+    .proj-action-btn:hover {
+      background: #ffffff; color: #000000; border-color: #ffffff;
+      transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,255,255,0.15);
+    }
+    .proj-badge-interactive {
+      font-size: 0.68rem; padding: 3px 8px; border-radius: 20px;
+      background: rgba(16,185,129,0.12); color: #10b981;
+      border: 1px solid rgba(16,185,129,0.3); font-weight: 500;
+    }
+
+    /* ─── MODAL SYSTEM ─── */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0, 0, 0, 0.78);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 1.5rem; opacity: 0; visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .modal-overlay.active { opacity: 1; visibility: visible; }
+    .modal-container {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 18px; width: 100%; max-width: 760px;
+      max-height: 90vh; overflow-y: auto; position: relative;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8);
+      transform: scale(0.95) translateY(12px);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      padding: 2.2rem;
+    }
+    .modal-overlay.active .modal-container { transform: scale(1) translateY(0); }
+    .modal-close-btn {
+      position: absolute; top: 1.25rem; right: 1.25rem;
+      width: 34px; height: 34px; border-radius: 50%;
+      background: var(--surface2); border: 1px solid var(--border);
+      color: var(--muted); font-size: 1.2rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s; z-index: 10;
+    }
+    .modal-close-btn:hover { color: var(--text); border-color: #555; background: #222; }
+
+    /* ─── DEMO CONTENT STYLES ─── */
+    .demo-header { margin-bottom: 1.5rem; padding-right: 2rem; }
+    .demo-title { font-family: "Outfit", sans-serif; font-size: 1.5rem; font-weight: 600; margin-bottom: 0.4rem; }
+    .demo-subtitle { color: var(--muted); font-size: 0.88rem; line-height: 1.5; }
+
+    .preset-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+    .preset-btn {
+      background: var(--surface2); border: 1px solid var(--border);
+      color: var(--muted); padding: 0.45rem 0.85rem; border-radius: 6px;
+      font-size: 0.78rem; cursor: pointer; transition: all 0.2s;
+      font-family: "Inter", sans-serif;
+    }
+    .preset-btn:hover, .preset-btn.active { border-color: var(--green); color: var(--text); background: rgba(16,185,129,0.1); }
+
+    .demo-textarea {
+      width: 100%; height: 85px; background: var(--bg); border: 1px solid var(--border);
+      border-radius: 8px; color: var(--text); padding: 0.75rem; font-family: "Inter", sans-serif;
+      font-size: 0.88rem; resize: vertical; margin-bottom: 1rem; outline: none;
+    }
+    .demo-textarea:focus { border-color: var(--green); }
+
+    .demo-output-card {
+      background: var(--bg); border: 1px solid var(--border); border-radius: 10px;
+      padding: 1.25rem; font-size: 0.84rem; font-family: "SF Mono", "Fira Code", monospace; color: #d4d4d4;
+      white-space: pre-wrap; margin-top: 1rem; position: relative; line-height: 1.6;
+      max-height: 300px; overflow-y: auto;
+    }
+
+    .sim-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+    @media(max-width: 600px) { .sim-grid { grid-template-columns: 1fr; } }
+    .sim-field { background: var(--bg); padding: 1rem; border-radius: 10px; border: 1px solid var(--border); }
+    .sim-label { font-size: 0.8rem; color: var(--muted); display: flex; justify-content: space-between; margin-bottom: 0.5rem; }
+    .sim-slider { width: 100%; accent-color: var(--blue); cursor: pointer; }
+
+    .sim-result-box {
+      background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;
+    }
+    .sim-score-badge { font-family: "Outfit", sans-serif; font-size: 1.8rem; font-weight: 700; }
+
+    .workflow-steps { display: flex; gap: 0.5rem; margin-top: 1rem; }
+    .wf-step {
+      flex: 1; padding: 0.75rem 0.5rem; text-align: center; background: var(--bg); border: 1px solid var(--border);
+      border-radius: 8px; font-size: 0.75rem; color: var(--muted); transition: all 0.3s;
+    }
+    .wf-step.active { border-color: var(--blue); background: rgba(59,130,246,0.1); color: #60a5fa; font-weight: 600; }
+    .wf-step.approved { border-color: var(--green); background: rgba(16,185,129,0.1); color: #34d399; font-weight: 600; }
+    .wf-step.rejected { border-color: #ef4444; background: rgba(239,68,68,0.1); color: #f87171; font-weight: 600; }
+
+    .canvas-wrapper {
+      background: #000; border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;
+    }
+    #arcade-canvas { background: #050508; width: 100%; max-width: 640px; height: 320px; display: block; }
+    .arcade-controls {
+      display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 0.75rem 1rem;
+      background: var(--surface2); font-size: 0.8rem; color: var(--muted);
+    }
+
     /* ─── SKILLS ─── */
     .skills-grid {
       display: grid;
@@ -626,22 +734,53 @@
           <div class="proj-body">
             <div class="proj-top">
               <span class="proj-name">AI Requirements Generator</span>
-              <span class="proj-year">2026</span>
+              <span class="proj-badge-interactive">Interactive Demo</span>
             </div>
-            <p class="proj-desc en">Converts raw stakeholder interview notes or meeting transcripts into structured User Stories and Acceptance Criteria — formatted and ready for Azure DevOps. Built with Python + LLM API.</p>
-            <p class="proj-desc it">Trasforma note di riunione e interviste a stakeholder in User Stories e Criteri di Accettazione strutturati, formattati e pronti per Azure DevOps. Realizzato con Python e API LLM.</p>
+            <p class="proj-desc en">Converts raw stakeholder interview notes into structured User Stories &amp; Gherkin Acceptance Criteria — ready for Azure DevOps.</p>
+            <p class="proj-desc it">Trasforma note di riunione e interviste in User Stories e Criteri Gherkin formattati e pronti per Azure DevOps.</p>
             <div class="proj-footer">
               <div class="proj-tags">
                 <span class="proj-tag">Python</span>
                 <span class="proj-tag">LLM API</span>
                 <span class="proj-tag">Azure DevOps</span>
-                <span class="proj-tag">Prompt Eng.</span>
               </div>
             </div>
+            <button onclick="openDemo('ai-requirements')" class="proj-action-btn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              <span class="en">Try Live Demo</span>
+              <span class="it">Prova l'Esempio Live</span>
+            </button>
           </div>
         </div>
 
-        <!-- Project 2: Ailingo -->
+        <!-- Project 2: Credit Risk Engine -->
+        <div class="proj-card reveal">
+          <div class="proj-banner banner-purple">
+            <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+          </div>
+          <div class="proj-body">
+            <div class="proj-top">
+              <span class="proj-name">Credit Risk &amp; Workflow Simulator</span>
+              <span class="proj-badge-interactive">Interactive Demo</span>
+            </div>
+            <p class="proj-desc en">Interactive SME lending risk engine simulating credit scoring, Default Probability (PD) &amp; automated workflow routing.</p>
+            <p class="proj-desc it">Simulatore di rischio credito per prestiti PMI che calcola PD e routing automatico delle delibere in base ai parametri aziendali.</p>
+            <div class="proj-footer">
+              <div class="proj-tags">
+                <span class="proj-tag">Fintech</span>
+                <span class="proj-tag">Credit Risk</span>
+                <span class="proj-tag">Process Engine</span>
+              </div>
+            </div>
+            <button onclick="openDemo('credit-risk')" class="proj-action-btn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+              <span class="en">Launch Simulator</span>
+              <span class="it">Apri Simulatore</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Project 3: Ailingo -->
         <div class="proj-card reveal">
           <div class="proj-banner banner-blue">
             <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
@@ -649,22 +788,26 @@
           <div class="proj-body">
             <div class="proj-top">
               <span class="proj-name">Ailingo</span>
-              <span class="proj-year">2025</span>
+              <span class="proj-badge-interactive">AI Platform</span>
             </div>
-            <p class="proj-desc en">An AI-powered language learning platform with personalized exercises, dynamic content generation and adaptive learning paths. Built with Next.js, Python and Generative AI.</p>
-            <p class="proj-desc it">Piattaforma di apprendimento linguistico basata su IA, con esercizi personalizzati, generazione dinamica di contenuti e percorsi adattivi. Realizzata con Next.js, Python e IA Generativa.</p>
+            <p class="proj-desc en">AI-powered language platform with adaptive learning paths and personalized dynamic exercise generation.</p>
+            <p class="proj-desc it">Piattaforma di apprendimento linguistico con esercizi dinamici personalizzati e percorsi adattivi basati su IA.</p>
             <div class="proj-footer">
               <div class="proj-tags">
                 <span class="proj-tag">Next.js</span>
                 <span class="proj-tag">Python</span>
                 <span class="proj-tag">GenAI</span>
-                <span class="proj-tag">TypeScript</span>
               </div>
             </div>
+            <button onclick="openDemo('ailingo')" class="proj-action-btn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+              <span class="en">Explore Overview</span>
+              <span class="it">Vedi Scheda Progetto</span>
+            </button>
           </div>
         </div>
 
-        <!-- Project 3: OpenPrometeo -->
+        <!-- Project 4: OpenPrometeo -->
         <a href="https://www.instagram.com/openprometeo_" target="_blank" rel="noopener noreferrer" class="proj-card reveal">
           <div class="proj-banner banner-purple">
             <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
@@ -672,34 +815,33 @@
           <div class="proj-body">
             <div class="proj-top">
               <span class="proj-name">OpenPrometeo</span>
-              <span class="proj-year">2020 —</span>
+              <span class="proj-year">12K+ Followers</span>
             </div>
-            <p class="proj-desc en">An Instagram philosophy &amp; art page exploring mental models, existential themes and visual storytelling. 12K+ followers, 1,400+ original posts. The folio between Psychology and Aesthetics.</p>
-            <p class="proj-desc it">Un canale Instagram su filosofia, modelli mentali e storytelling visivo. Oltre 12K follower e 1.400+ post originali. Il confine tra Psicologia ed Estetica.</p>
+            <p class="proj-desc en">Philosophy &amp; visual mental models channel exploring cognitive frameworks, psychology and aesthetics.</p>
+            <p class="proj-desc it">Canale Instagram su filosofia e modelli mentali per il decision making, psicologia ed estetica visiva.</p>
             <div class="proj-footer">
               <div class="proj-tags">
-                <span class="proj-tag">Philosophy</span>
+                <span class="proj-tag">Mental Models</span>
                 <span class="proj-tag">Visual Art</span>
-                <span class="proj-tag">12K+ followers</span>
               </div>
-              <span class="proj-link en">View ↗</span>
-              <span class="proj-link it">Apri ↗</span>
+              <span class="proj-link en">View Channel ↗</span>
+              <span class="proj-link it">Apri Canale ↗</span>
             </div>
           </div>
         </a>
 
-        <!-- Project 4: Games -->
+        <!-- Project 5: Games -->
         <div class="proj-card reveal">
           <div class="proj-banner banner-amber">
             <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="6" x2="10" y1="12" y2="12"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="15" x2="15.01" y1="13" y2="13"/><line x1="18" x2="18.01" y1="11" y2="11"/><rect width="20" height="12" x="2" y="6" rx="3"/></svg>
           </div>
           <div class="proj-body">
             <div class="proj-top">
-              <span class="proj-name">Worms &amp; Space Impact</span>
-              <span class="proj-year">2024</span>
+              <span class="proj-name">Space Impact Arcade</span>
+              <span class="proj-badge-interactive">Playable Demo</span>
             </div>
-            <p class="proj-desc en">Modern browser recreations of classic arcade games built from scratch with HTML5 Canvas and vanilla JavaScript — showcasing state machines, physics and animations.</p>
-            <p class="proj-desc it">Repliche moderne dei celebri giochi arcade realizzate da zero con HTML5 Canvas e JavaScript vanilla. Logica a stati, fisica e animazioni hand-coded.</p>
+            <p class="proj-desc en">Playable browser recreation of retro arcade space shooter built with vanilla JS and HTML5 Canvas API.</p>
+            <p class="proj-desc it">Rivisitazione giocabile nel browser del classico gioco arcade, realizzata da zero con Canvas HTML5 e JavaScript.</p>
             <div class="proj-footer">
               <div class="proj-tags">
                 <span class="proj-tag">JavaScript</span>
@@ -707,6 +849,11 @@
                 <span class="proj-tag">HTML5</span>
               </div>
             </div>
+            <button onclick="openDemo('space-impact')" class="proj-action-btn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              <span class="en">Play Game Now</span>
+              <span class="it">Gioca Ora</span>
+            </button>
           </div>
         </div>
 
@@ -848,6 +995,14 @@
     </div>
   </footer>
 
+  <!-- ─── INTERACTIVE DEMO MODAL ─── -->
+  <div id="demo-modal" class="modal-overlay" onclick="handleModalOverlayClick(event)">
+    <div class="modal-container">
+      <button class="modal-close-btn" onclick="closeDemo()">&times;</button>
+      <div id="modal-dynamic-content"></div>
+    </div>
+  </div>
+
   <script>
     // ─── LANGUAGE TOGGLE ───
     let lang = localStorage.getItem('mm-lang') || 'en';
@@ -912,6 +1067,468 @@
       });
     }, { threshold: 0.12 });
     reveals.forEach(el => observer.observe(el));
+
+    // ─── INTERACTIVE DEMO SUITE ───
+    let currentGameLoop = null;
+
+    function handleModalOverlayClick(e) {
+      if (e.target.classList.contains('modal-overlay')) closeDemo();
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeDemo();
+    });
+
+    function closeDemo() {
+      const modalOverlay = document.getElementById('demo-modal');
+      if (modalOverlay) modalOverlay.classList.remove('active');
+      if (currentGameLoop) {
+        cancelAnimationFrame(currentGameLoop);
+        currentGameLoop = null;
+      }
+    }
+
+    function openDemo(demoId) {
+      const modalOverlay = document.getElementById('demo-modal');
+      const container = document.getElementById('modal-dynamic-content');
+      if (!modalOverlay || !container) return;
+
+      if (currentGameLoop) {
+        cancelAnimationFrame(currentGameLoop);
+        currentGameLoop = null;
+      }
+
+      if (demoId === 'ai-requirements') {
+        renderAiRequirementsDemo(container);
+      } else if (demoId === 'credit-risk') {
+        renderCreditRiskDemo(container);
+      } else if (demoId === 'ailingo') {
+        renderAilingoDemo(container);
+      } else if (demoId === 'space-impact') {
+        renderSpaceImpactDemo(container);
+      }
+
+      modalOverlay.classList.add('active');
+    }
+
+    // ─── DEMO A: AI REQUIREMENTS GENERATOR ───
+    function renderAiRequirementsDemo(container) {
+      const isIt = document.documentElement.getAttribute('lang') === 'it';
+      container.innerHTML = `
+        <div class="demo-header">
+          <h3 class="demo-title">${isIt ? 'Generatore Requisiti AI & User Stories' : 'AI Requirements & User Story Generator'}</h3>
+          <p class="demo-subtitle">${isIt ? 'Seleziona un esempio di processo aziendale o scrivi dei requisiti non strutturati per simulare la generazione di User Story in formato Agile/Azure DevOps.' : 'Select a business scenario or input raw stakeholder notes to simulate automated Agile User Story generation.'}</p>
+        </div>
+        
+        <div class="preset-chips">
+          <button class="preset-btn active" onclick="setAiPreset(1)">${isIt ? '1. Onboarding PMI con SPID' : '1. SME Onboarding with SPID'}</button>
+          <button class="preset-btn" onclick="setAiPreset(2)">${isIt ? '2. Integrazione API Scoring' : '2. Credit Scoring API Integration'}</button>
+          <button class="preset-btn" onclick="setAiPreset(3)">${isIt ? '3. Solleciti Automatici Rate' : '3. Automated Payment Reminders'}</button>
+        </div>
+
+        <textarea id="ai-input-text" class="demo-textarea" placeholder="${isIt ? 'Inserisci le note dello stakeholder...' : 'Type stakeholder notes here...'}"></textarea>
+        
+        <button onclick="generateUserStory()" class="btn btn-primary" style="width:100%; justify-content:center;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          ${isIt ? 'Genera User Story & Criteri UAT' : 'Generate User Story & UAT Criteria'}
+        </button>
+
+        <div id="ai-output-box" class="demo-output-card"></div>
+      `;
+      setAiPreset(1);
+    }
+
+    const aiPresets = {
+      1: {
+        en: "SME onboarding: allow business representative to log in with SPID, auto-fill company data (P.IVA, address), sign credit request via OTP and transfer dossier via SFTP.",
+        it: "Onboarding PMI: permettere al legale rappresentante di accedere tramite SPID, precompilare i dati societari (P.IVA, ragione sociale), firmare la richiesta con OTP ed inviare il fascicolo via SFTP."
+      },
+      2: {
+        en: "API Integration: execute synchronous call to Credit Risk Scoring API within 1.5s timeout. If rating <= 3, grant instant 50k line of credit.",
+        it: "Integrazione API: effettuare chiamata sincrona all'API di Credit Scoring entro 1.5s. Se il rating è <= 3, approvare automaticamente affidamento fino a 50.000€."
+      },
+      3: {
+        en: "Automated recovery: send push notifications and SMS 3 days before installment due date with payment link via PagoPA / Stripe API.",
+        it: "Recupero automatico: inviare notifica push ed SMS 3 giorni prima della scadenza della rata con link di pagamento PagoPA / Stripe API."
+      }
+    };
+
+    function setAiPreset(id) {
+      const isIt = document.documentElement.getAttribute('lang') === 'it';
+      document.querySelectorAll('.preset-btn').forEach((b, idx) => {
+        b.classList.toggle('active', idx === (id - 1));
+      });
+      const textarea = document.getElementById('ai-input-text');
+      if (textarea) textarea.value = aiPresets[id][isIt ? 'it' : 'en'];
+    }
+
+    function generateUserStory() {
+      const isIt = document.documentElement.getAttribute('lang') === 'it';
+      const output = document.getElementById('ai-output-box');
+      if (!output) return;
+      
+      output.textContent = isIt ? "⚡ Generazione in corso da parte del modello AI..." : "⚡ Generating User Story & Acceptance Criteria...";
+      
+      setTimeout(() => {
+        const text = document.getElementById('ai-input-text').value;
+        output.textContent = isIt ? `[USER STORY AGILE / AZURE DEVOPS]
+Titolo: Integrazione Processo Digitale - ${text.slice(0, 40)}...
+Come: Responsabile Operativo / Utente Business
+Voglio: ${text}
+Affinché: Il processo sia completamente tracciato, automatizzato e privo di inserimenti manuali.
+
+[CRITERI DI ACCETTAZIONE (FORMATO GHERKIN)]
+Scenario 1: Flusso Standard (Happy Path)
+  DATO CHE l'utente ha completato l'autenticazione con successo
+  QUANDO invia i dati del modulo di richiesta
+  ALLORA il sistema esegue la validazione in < 1500ms
+  E restituisce l'ID pratica univoco salvato nel database MS SQL.
+
+Scenario 2: Gestione Errori di Rete / Timeout API
+  DATO CHE l'endpoint di terze parti non risponde entro 2 secondi
+  QUANDO viene effettuata la richiesta di cooperazione applicativa
+  ALLORA il sistema mette in coda il messaggio nel circuito SFTP / Retry Queue
+  E notifica il Tech BA via log di sistema con errore HTTP 504.
+
+[MAPPING TECNICO & TAG AZURE DEVOPS]
+- Area Path: Banking / Digital Lending
+- Work Item Type: User Story
+- Service Contract: JSON REST / SFTP Encrypted payload`
+:
+`[AGILE USER STORY / AZURE DEVOPS FORMAT]
+Title: Digital Process Integration - ${text.slice(0, 40)}...
+As a: Business Operations Manager / Client User
+I want to: ${text}
+So that: The process is automated, fully auditable, and eliminates manual data entry.
+
+[ACCEPTANCE CRITERIA (GHERKIN FORMAT)]
+Scenario 1: Happy Path Execution
+  GIVEN the user has successfully authenticated
+  WHEN they submit the request form
+  THEN the engine validates schema in < 1500ms
+  AND returns a unique dossier ID persisted in MS SQL DB.
+
+Scenario 2: API Timeout & Resiliency Fallback
+  GIVEN the external endpoint does not respond within 2000ms
+  WHEN the synchronous API call is initiated
+  THEN the system queues the transaction into SFTP Retry Queue
+  AND logs a system alert tagged HTTP 504 for Tech BA review.
+
+[TECHNICAL SPECS & AZURE DEVOPS TAGS]
+- Area Path: Credit Lending / Digital Workflows
+- Work Item Type: User Story
+- Contract: JSON REST / SFTP Payload`;
+      }, 500);
+    }
+
+    // ─── DEMO B: CREDIT RISK SIMULATOR ───
+    function renderCreditRiskDemo(container) {
+      const isIt = document.documentElement.getAttribute('lang') === 'it';
+      container.innerHTML = `
+        <div class="demo-header">
+          <h3 class="demo-title">${isIt ? 'Simulatore Rischio Credito & Engine Workflow' : 'Credit Risk & Workflow Engine Simulator'}</h3>
+          <p class="demo-subtitle">${isIt ? 'Modifica i parametri finanziari dell\'impresa per calcolare in tempo reale il punteggio di rischio, la PD (Probabilità di Default) ed il percorso di delibera.' : 'Adjust company financial sliders to evaluate credit score, Default Probability (PD), and automatic decision routing in real-time.'}</p>
+        </div>
+
+        <div class="sim-grid">
+          <div class="sim-field">
+            <div class="sim-label"><span>${isIt ? 'Fatturato Annuo (€)' : 'Annual Revenue (€)'}</span><span id="v-rev">€ 1.500.000</span></div>
+            <input type="range" id="s-rev" class="sim-slider" min="100000" max="10000000" step="100000" value="1500000" oninput="updateCreditRiskSim()">
+          </div>
+          <div class="sim-field">
+            <div class="sim-label"><span>${isIt ? 'Importo Richiesto (€)' : 'Loan Requested (€)'}</span><span id="v-loan">€ 250.000</span></div>
+            <input type="range" id="s-loan" class="sim-slider" min="20000" max="1000000" step="10000" value="250000" oninput="updateCreditRiskSim()">
+          </div>
+          <div class="sim-field">
+            <div class="sim-label"><span>${isIt ? 'Anni di Attività' : 'Years Active'}</span><span id="v-years">6 anni</span></div>
+            <input type="range" id="s-years" class="sim-slider" min="1" max="25" step="1" value="6" oninput="updateCreditRiskSim()">
+          </div>
+          <div class="sim-field">
+            <div class="sim-label"><span>${isIt ? 'Rating Creditizio (1-10)' : 'Credit Score Rating (1-10)'}</span><span id="v-rating">Class 3 (Ottimo)</span></div>
+            <input type="range" id="s-rating" class="sim-slider" min="1" max="10" step="1" value="3" oninput="updateCreditRiskSim()">
+          </div>
+        </div>
+
+        <div class="sim-result-box">
+          <div>
+            <div style="font-size:0.78rem; color:var(--muted); text-transform:uppercase;">${isIt ? 'Score Calcolato' : 'Calculated Credit Score'}</div>
+            <div id="sim-score-display" class="sim-score-badge" style="color:var(--green);">780 / 900</div>
+          </div>
+          <div>
+            <div style="font-size:0.78rem; color:var(--muted); text-transform:uppercase;">${isIt ? 'Probabilità Default (PD)' : 'Probability of Default (PD)'}</div>
+            <div id="sim-pd-display" style="font-size:1.4rem; font-weight:600;">1.25%</div>
+          </div>
+          <div>
+            <div style="font-size:0.78rem; color:var(--muted); text-transform:uppercase;">${isIt ? 'Esito Engine Workflow' : 'Engine Decision'}</div>
+            <div id="sim-status-display" style="font-size:0.95rem; font-weight:600; color:var(--green);">${isIt ? 'Approvazione Istantanea' : 'Instant Approval (STP)'}</div>
+          </div>
+        </div>
+
+        <div style="font-size:0.8rem; color:var(--muted); margin-bottom:0.4rem;">${isIt ? 'Flusso di Instradamento Workflow:' : 'Workflow Engine Step Highlight:'}</div>
+        <div class="workflow-steps">
+          <div id="wf-step-1" class="wf-step approved">${isIt ? '1. Verifiche KYC/SPID' : '1. KYC / SPID Check'}</div>
+          <div id="wf-step-2" class="wf-step approved">${isIt ? '2. Scoring Automatico' : '2. Automated Scoring'}</div>
+          <div id="wf-step-3" class="wf-step approved">${isIt ? '3. Delibera Istantanea' : '3. STP Approval'}</div>
+          <div id="wf-step-4" class="wf-step">${isIt ? '4. Comitato Rischio' : '4. Risk Committee'}</div>
+        </div>
+      `;
+      updateCreditRiskSim();
+    }
+
+    function updateCreditRiskSim() {
+      const isIt = document.documentElement.getAttribute('lang') === 'it';
+      const rev = parseInt(document.getElementById('s-rev').value);
+      const loan = parseInt(document.getElementById('s-loan').value);
+      const years = parseInt(document.getElementById('s-years').value);
+      const rating = parseInt(document.getElementById('s-rating').value);
+
+      document.getElementById('v-rev').textContent = `€ ${rev.toLocaleString('it-IT')}`;
+      document.getElementById('v-loan').textContent = `€ ${loan.toLocaleString('it-IT')}`;
+      document.getElementById('v-years').textContent = `${years} ${isIt ? 'anni' : 'years'}`;
+      document.getElementById('v-rating').textContent = `Class ${rating} (${rating <= 3 ? 'High Quality' : rating <= 6 ? 'Medium Risk' : 'High Risk'})`;
+
+      const leverage = loan / rev;
+      let score = 850 - (rating * 45) - (leverage * 200) + (years * 6);
+      score = Math.max(300, Math.min(900, Math.round(score)));
+
+      const pd = (100 - (score / 9)).toFixed(2);
+
+      const scoreEl = document.getElementById('sim-score-display');
+      const pdEl = document.getElementById('sim-pd-display');
+      const statusEl = document.getElementById('sim-status-display');
+
+      const step3 = document.getElementById('wf-step-3');
+      const step4 = document.getElementById('wf-step-4');
+
+      scoreEl.textContent = `${score} / 900`;
+      pdEl.textContent = `${Math.max(0.4, pd)}%`;
+
+      if (score >= 700) {
+        scoreEl.style.color = 'var(--green)';
+        statusEl.style.color = '#34d399';
+        statusEl.textContent = isIt ? 'Approvato (STP Direct)' : 'Instant Approval (STP)';
+        step3.className = 'wf-step approved';
+        step3.textContent = isIt ? '3. Delibera Istantanea' : '3. STP Approval';
+        step4.className = 'wf-step';
+      } else if (score >= 520) {
+        scoreEl.style.color = 'var(--amber)';
+        statusEl.style.color = '#fbbf24';
+        statusEl.textContent = isIt ? 'Revisione Manuale (Analista)' : 'Manual Underwriting Required';
+        step3.className = 'wf-step active';
+        step3.textContent = isIt ? '3. Istruttoria Manuale' : '3. Manual Review';
+        step4.className = 'wf-step active';
+        step4.textContent = isIt ? '4. Comitato Rischio' : '4. Risk Committee';
+      } else {
+        scoreEl.style.color = '#ef4444';
+        statusEl.style.color = '#f87171';
+        statusEl.textContent = isIt ? 'Rifiutato (Leva Elevata)' : 'Rejected (High Risk Leverage)';
+        step3.className = 'wf-step rejected';
+        step3.textContent = isIt ? '3. Esito Negativo' : '3. Rejection';
+        step4.className = 'wf-step';
+      }
+    }
+
+    // ─── DEMO C: AILINGO OVERVIEW ───
+    function renderAilingoDemo(container) {
+      const isIt = document.documentElement.getAttribute('lang') === 'it';
+      container.innerHTML = `
+        <div class="demo-header">
+          <h3 class="demo-title">Ailingo — AI Language Learning Engine</h3>
+          <p class="demo-subtitle">${isIt ? 'Piattaforma ed edTech app basata su LLM per l\'apprendimento linguistico adattivo.' : 'LLM-powered language platform designed for adaptive learning and personalized AI exercises.'}</p>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1.5rem;">
+          <div style="background:var(--bg); padding:1.2rem; border-radius:10px; border:1px solid var(--border);">
+            <div style="color:var(--blue); font-weight:600; margin-bottom:0.4rem;">💡 ${isIt ? 'Architettura Microservizi' : 'Microservice Architecture'}</div>
+            <div style="font-size:0.85rem; color:var(--muted); line-height:1.5;">Next.js Frontend + Python FastAPI Backend orchestrating OpenAI / Claude LLM calls via custom prompt pipelines.</div>
+          </div>
+          <div style="background:var(--bg); padding:1.2rem; border-radius:10px; border:1px solid var(--border);">
+            <div style="color:var(--purple); font-weight:600; margin-bottom:0.4rem;">🎯 ${isIt ? 'Adattatività in Tempo Reale' : 'Real-time Adaptation'}</div>
+            <div style="font-size:0.85rem; color:var(--muted); line-height:1.5;">Evaluates user grammar accuracy, adjusts vocabulary difficulty dynamically, and generates tailored error explanations.</div>
+          </div>
+        </div>
+
+        <div class="demo-output-card">
+[AILINGO API SAMPLE PROMPT ENGINE]
+POST /api/v1/generate-exercise
+Payload: { "user_level": "B2", "target_language": "English", "focus": "Business Negotiations" }
+
+Response (200 OK):
+{
+  "scenario": "Negotiating an SLA penalty clause with a supplier",
+  "prompt": "Choose the most appropriate diplomatic phrasing:",
+  "options": [
+    "A) We demand a 20% discount immediately if you fail.",
+    "B) Should SLAs fall below target, we propose a credit adjustment mechanism.",
+    "C) Your delays are unacceptable to our management."
+  ],
+  "correct_answer": "B",
+  "explanation": "Option B uses professional diplomatic language suitable for B2+ business negotiations."
+}</div>
+      `;
+    }
+
+    // ─── DEMO D: PLAYABLE SPACE IMPACT ARCADE GAME ───
+    function renderSpaceImpactDemo(container) {
+      const isIt = document.documentElement.getAttribute('lang') === 'it';
+      container.innerHTML = `
+        <div class="demo-header" style="margin-bottom:1rem;">
+          <h3 class="demo-title">Space Impact Arcade (Canvas HTML5)</h3>
+          <p class="demo-subtitle">${isIt ? 'Usa la tastiera (Freccia Su/Giù o W/S) per muoverti e lo Spazio per sparare alle navi nemiche!' : 'Use keyboard Arrow Keys (or W/S) to move up/down and Spacebar to shoot enemies!'}</p>
+        </div>
+
+        <div class="canvas-wrapper">
+          <canvas id="arcade-canvas" width="600" height="300"></canvas>
+          <div class="arcade-controls">
+            <span>Score: <strong id="game-score" style="color:#fff;">0</strong></span>
+            <span>Controls: <strong>W/S</strong> or <strong>Arrows</strong> + <strong>Space</strong></span>
+            <button onclick="initArcadeGame()" class="preset-btn" style="padding:2px 10px;">${isIt ? 'Ricomincia' : 'Restart'}</button>
+          </div>
+        </div>
+      `;
+
+      setTimeout(initArcadeGame, 50);
+    }
+
+    function initArcadeGame() {
+      const canvas = document.getElementById('arcade-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const scoreEl = document.getElementById('game-score');
+
+      let score = 0;
+      let gameOver = false;
+
+      const player = { x: 30, y: 130, w: 24, h: 18, vy: 0, speed: 4 };
+      let bullets = [];
+      let enemies = [];
+      let stars = [];
+      let keys = {};
+
+      for (let i = 0; i < 40; i++) {
+        stars.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, s: Math.random() * 2 + 0.5 });
+      }
+
+      function onKeyDown(e) {
+        keys[e.code] = true;
+        if (e.code === 'Space') {
+          bullets.push({ x: player.x + player.w, y: player.y + player.h / 2, r: 3, vx: 7 });
+          e.preventDefault();
+        }
+      }
+      function onKeyUp(e) { keys[e.code] = false; }
+
+      window.addEventListener('keydown', onKeyDown);
+      window.addEventListener('keyup', onKeyUp);
+
+      let enemyTimer = 0;
+
+      function loop() {
+        if (!document.getElementById('arcade-canvas')) {
+          window.removeEventListener('keydown', onKeyDown);
+          window.removeEventListener('keyup', onKeyUp);
+          return;
+        }
+
+        // Update
+        if (!gameOver) {
+          if (keys['ArrowUp'] || keys['KeyW']) player.y = Math.max(10, player.y - player.speed);
+          if (keys['ArrowDown'] || keys['KeyS']) player.y = Math.min(canvas.height - 30, player.y + player.speed);
+
+          // Update stars
+          stars.forEach(st => {
+            st.x -= st.s;
+            if (st.x < 0) st.x = canvas.width;
+          });
+
+          // Update bullets
+          bullets.forEach(b => b.x += b.vx);
+          bullets = bullets.filter(b => b.x < canvas.width);
+
+          // Spawn enemies
+          enemyTimer++;
+          if (enemyTimer % 45 === 0) {
+            enemies.push({ x: canvas.width, y: Math.random() * (canvas.height - 30) + 10, w: 20, h: 20, vx: 2.5 });
+          }
+
+          // Update enemies
+          enemies.forEach(en => en.x -= en.vx);
+
+          // Collision detection
+          bullets.forEach((b, bi) => {
+            enemies.forEach((en, ei) => {
+              if (b.x >= en.x && b.x <= en.x + en.w && b.y >= en.y && b.y <= en.y + en.h) {
+                enemies.splice(ei, 1);
+                bullets.splice(bi, 1);
+                score += 10;
+                if (scoreEl) scoreEl.textContent = score;
+              }
+            });
+          });
+
+          enemies.forEach(en => {
+            if (en.x < player.x + player.w && en.x + en.w > player.x && en.y < player.y + player.h && en.y + en.h > player.y) {
+              gameOver = true;
+            }
+          });
+
+          enemies = enemies.filter(en => en.x > -30);
+        }
+
+        // Draw
+        ctx.fillStyle = '#050508';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Draw stars
+        ctx.fillStyle = '#ffffff';
+        stars.forEach(st => {
+          ctx.globalAlpha = st.s / 2.5;
+          ctx.fillRect(st.x, st.y, st.s, st.s);
+        });
+        ctx.globalAlpha = 1.0;
+
+        // Draw player ship
+        ctx.fillStyle = '#38bdf8';
+        ctx.beginPath();
+        ctx.moveTo(player.x + player.w, player.y + player.h / 2);
+        ctx.lineTo(player.x, player.y);
+        ctx.lineTo(player.x + 4, player.y + player.h / 2);
+        ctx.lineTo(player.x, player.y + player.h);
+        ctx.closePath();
+        ctx.fill();
+
+        // Draw bullets
+        ctx.fillStyle = '#f59e0b';
+        bullets.forEach(b => {
+          ctx.beginPath();
+          ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+          ctx.fill();
+        });
+
+        // Draw enemies
+        ctx.fillStyle = '#ef4444';
+        enemies.forEach(en => {
+          ctx.fillRect(en.x, en.y, en.w, en.h);
+        });
+
+        if (gameOver) {
+          ctx.fillStyle = 'rgba(0,0,0,0.75)';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+          ctx.fillStyle = '#fff';
+          ctx.font = '20px Outfit, sans-serif';
+          ctx.textAlign = 'center';
+          ctx.fillText('GAME OVER', canvas.width / 2, canvas.height / 2 - 10);
+          ctx.font = '13px Inter, sans-serif';
+          ctx.fillStyle = '#999';
+          ctx.fillText('Final Score: ' + score + ' — Click Restart below to try again', canvas.width / 2, canvas.height / 2 + 20);
+        } else {
+          currentGameLoop = requestAnimationFrame(loop);
+        }
+      }
+
+      loop();
+    }
   </script>
 </body>
 </html>
