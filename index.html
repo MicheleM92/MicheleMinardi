@@ -132,6 +132,14 @@
     .btn-primary:hover { background: #eaeaea; transform: translateY(-1px); box-shadow: 0 6px 24px rgba(0,0,0,0.4); }
     .btn-ghost { background: transparent; border-color: var(--border); color: var(--muted); }
     .btn-ghost:hover { border-color: #444; color: var(--text); transform: translateY(-1px); }
+    .btn-cv {
+      background: var(--surface2); border: 1px solid var(--border); color: var(--text);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+    }
+    .btn-cv:hover {
+      border-color: #555; background: #222; transform: translateY(-1px); color: #fff;
+      box-shadow: 0 6px 20px rgba(255,255,255,0.08);
+    }
     .btn-icon { background: transparent; border: none; color: var(--muted); padding: 0.6rem; border-radius: 8px; }
     .btn-icon:hover { color: var(--text); background: var(--surface); }
 
@@ -543,6 +551,10 @@
         <a href="mailto:michele.minardi.1992@gmail.com" class="btn btn-primary">
           <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
           <span class="en">Get In Touch</span><span class="it">Scrivimi</span>
+        </a>
+        <a href="Michele_Minardi_CV.pdf" download="Michele_Minardi_CV.pdf" onclick="handleCvDownload(event)" class="btn btn-cv">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+          <span class="en">Download CV (PDF)</span><span class="it">Scarica CV (PDF)</span>
         </a>
         <a href="https://linkedin.com/in/michele-minardi-/" target="_blank" rel="noopener" class="btn btn-ghost">
           LinkedIn
@@ -1088,6 +1100,20 @@
       }
     }
 
+    function handleCvDownload(e) {
+      fetch('Michele_Minardi_CV.pdf', { method: 'HEAD' })
+        .then(res => {
+          if (!res.ok) {
+            if (e) e.preventDefault();
+            openDemo('cv-preview');
+          }
+        })
+        .catch(() => {
+          if (e) e.preventDefault();
+          openDemo('cv-preview');
+        });
+    }
+
     function openDemo(demoId) {
       const modalOverlay = document.getElementById('demo-modal');
       const container = document.getElementById('modal-dynamic-content');
@@ -1106,9 +1132,51 @@
         renderAilingoDemo(container);
       } else if (demoId === 'space-impact') {
         renderSpaceImpactDemo(container);
+      } else if (demoId === 'cv-preview') {
+        renderCvPreviewDemo(container);
       }
 
       modalOverlay.classList.add('active');
+    }
+
+    // ─── DEMO CV PREVIEW ───
+    function renderCvPreviewDemo(container) {
+      const isIt = document.documentElement.getAttribute('lang') === 'it';
+      container.innerHTML = `
+        <div class="demo-header">
+          <h3 class="demo-title">Michele Minardi — Executive Curriculum Vitae</h3>
+          <p class="demo-subtitle">Tech Business Analyst &amp; AI Process Engineer | Bologna, Italy &amp; Remote</p>
+        </div>
+
+        <div style="background:var(--bg); border:1px solid var(--border); border-radius:12px; padding:1.4rem; margin-bottom:1.5rem;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; flex-wrap:wrap; gap:0.5rem;">
+            <span style="font-weight:600; color:var(--text);">${isIt ? 'Riepilogo Profilo Profilo Professionale' : 'Professional Profile Overview'}</span>
+            <span style="font-size:0.78rem; background:rgba(16,185,129,0.12); color:#10b981; padding:3px 8px; border-radius:4px;">110/110 Cum Laude MSc</span>
+          </div>
+          
+          <ul style="font-size:0.88rem; color:var(--muted); line-height:1.7; padding-left:1.2rem; margin-bottom:1.2rem;">
+            <li><strong>Tech BA @ Moltiply Group</strong>: Design of end-to-end digital lending workflows (SME loans, credit lines) in Agile/Scrum environment.</li>
+            <li><strong>AI & Automation</strong>: Prompt Engineering, Copilot & Agentic workflows for requirements & documentation.</li>
+            <li><strong>Data & Risk</strong>: SQL (MS SQL Server), Power BI, SAP, financial statement credit risk assessment (ex Montenegro & Unigrà).</li>
+            <li><strong>Education</strong>: MSc in Statistical, Financial & Actuarial Sciences (UniBo 110L) + Erasmus in Prague.</li>
+          </ul>
+
+          <div style="font-size:0.8rem; color:#888;">
+            💡 <em>${isIt ? 'Per scaricare il documento PDF completo, inserisci il file Michele_Minardi_CV.pdf nella root del progetto o utilizza il pulsante di stampa.' : 'To download the full PDF document, place Michele_Minardi_CV.pdf in the root directory or click Print.'}</em>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
+          <a href="Michele_Minardi_CV.pdf" download="Michele_Minardi_CV.pdf" class="btn btn-primary" style="flex:1; justify-content:center;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+            ${isIt ? 'Download Diretto PDF' : 'Direct Download PDF'}
+          </a>
+          <button onclick="window.print()" class="btn btn-cv" style="flex:1; justify-content:center;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>
+            ${isIt ? 'Stampa / Salva in PDF' : 'Print / Save Web PDF'}
+          </button>
+        </div>
+      `;
     }
 
     // ─── DEMO A: AI REQUIREMENTS GENERATOR ───
