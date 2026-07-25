@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Michele Minardi | Tech Business Analyst & AI Process Engineer</title>
+  <meta name="description" content="Portfolio of Michele Minardi — Tech Business Analyst and AI Process Engineer specializing in digital transformation, credit lending, and AI-assisted workflows." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #080808;
+      --surface: #111111;
+      --surface2: #161616;
+      --text: #eaeaea;
+      --muted: #777777;
+      --border: #1e1e1e;
+      --accent: #ffffff;
+      --green: #10b981;
+      --purple: #8b5cf6;
+      --blue: #3b82f6;
+      --amber: #f59e0b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: "Inter", sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    ::selection { background: rgba(255,255,255,0.12); color: #fff; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #333; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0 2rem; height: 64px;
+      background: rgba(8,8,8,0.8);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s;
+    }
+    nav.scrolled { border-bottom-color: var(--border); }
+    .nav-logo {
+      font-family: "Outfit", sans-serif;
+      font-weight: 600; font-size: 1.1rem; letter-spacing: -0.02em;
+      color: var(--text); text-decoration: none;
+    }
+    .nav-logo span { color: var(--muted); font-weight: 300; }
+    .nav-links {
+      display: flex; gap: 2rem; list-style: none; align-items: center;
+    }
+    .nav-links a {
+      color: var(--muted); text-decoration: none; font-size: 0.88rem;
+      font-weight: 400; transition: color 0.2s; letter-spacing: 0.01em;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-right { display: flex; align-items: center; gap: 1rem; }
+    .lang-btn {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 20px; padding: 0.4rem 0.9rem;
+      display: flex; align-items: center; gap: 0.4rem;
+      cursor: pointer; color: var(--text); font-size: 0.82rem; font-weight: 500;
+      transition: all 0.2s; font-family: "Inter", sans-serif;
+    }
+    .lang-btn:hover { border-color: #444; background: var(--surface2); }
+
+    /* ─── CONTAINER ─── */
+    .container { max-width: 820px; margin: 0 auto; padding: 0 2rem; }
+
+    /* ─── HERO ─── */
+    #hero {
+      padding: 160px 0 100px;
+      position: relative; overflow: hidden;
+    }
+    .hero-grid-bg {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 50% at 50% 0%, black, transparent);
+      -webkit-mask-image: radial-gradient(ellipse 80% 50% at 50% 0%, black, transparent);
+    }
+    .flower-wrapper {
+      width: 56px; height: 56px;
+      color: var(--muted); opacity: 0.7;
+      animation: spin 90s linear infinite;
+      margin-bottom: 2.5rem;
+    }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .hero-title {
+      font-family: "Outfit", sans-serif;
+      font-size: clamp(2.4rem, 5vw, 3.2rem);
+      font-weight: 600; letter-spacing: -0.04em;
+      line-height: 1.08; margin-bottom: 1.2rem;
+    }
+    .hero-title .muted { color: var(--muted); font-weight: 400; }
+    .typewriter-wrap {
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      color: var(--muted); font-weight: 300;
+      max-width: 620px; margin-bottom: 2.5rem; line-height: 1.7;
+    }
+    .cursor { 
+      display: inline-block; width: 2px; height: 1.1em;
+      background: var(--muted); margin-left: 2px;
+      vertical-align: text-bottom;
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.55rem;
+      padding: 0.65rem 1.3rem; border-radius: 8px;
+      font-size: 0.9rem; font-weight: 500; text-decoration: none;
+      cursor: pointer; transition: all 0.2s cubic-bezier(0.16,1,0.3,1);
+      font-family: "Inter", sans-serif; border: 1px solid transparent;
+    }
+    .btn-primary {
+      background: #fff; color: #000;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.1), 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .btn-primary:hover { background: #eaeaea; transform: translateY(-1px); box-shadow: 0 6px 24px rgba(0,0,0,0.4); }
+    .btn-ghost { background: transparent; border-color: var(--border); color: var(--muted); }
+    .btn-ghost:hover { border-color: #444; color: var(--text); transform: translateY(-1px); }
+    .btn-icon { background: transparent; border: none; color: var(--muted); padding: 0.6rem; border-radius: 8px; }
+    .btn-icon:hover { color: var(--text); background: var(--surface); }
+
+    /* ─── SECTION BASE ─── */
+    section { padding: 80px 0; }
+    .section-header {
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 3rem;
+    }
+    .section-label {
+      font-family: "Outfit", sans-serif;
+      font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--muted); white-space: nowrap;
+    }
+    .section-line { flex: 1; height: 1px; background: var(--border); }
+
+    /* ─── WHAT I DO CARDS ─── */
+    #what-i-do { background: var(--bg); }
+    .what-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+    .what-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.75rem;
+      transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+      position: relative; overflow: hidden;
+    }
+    .what-card::before {
+      content: ""; position: absolute;
+      top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .what-card:hover { border-color: #333; transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0,0,0,0.35); }
+    .what-card:hover::before { opacity: 1; }
+    .what-icon {
+      width: 42px; height: 42px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.2rem; font-size: 1.2rem;
+    }
+    .what-icon.green { background: rgba(16,185,129,0.1); color: #10b981; }
+    .what-icon.purple { background: rgba(139,92,246,0.1); color: #8b5cf6; }
+    .what-icon.blue { background: rgba(59,130,246,0.1); color: #3b82f6; }
+    .what-icon.amber { background: rgba(245,158,11,0.1); color: #f59e0b; }
+    .what-title {
+      font-family: "Outfit", sans-serif;
+      font-size: 1rem; font-weight: 600;
+      margin-bottom: 0.6rem; color: var(--text);
+    }
+    .what-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
+
+    /* ─── STATS BAR ─── */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border); border-radius: 14px;
+      overflow: hidden; margin-bottom: 5rem;
+    }
+    .stat-item {
+      background: var(--surface); padding: 1.5rem 1.25rem;
+      text-align: center;
+    }
+    .stat-number {
+      font-family: "Outfit", sans-serif;
+      font-size: 1.8rem; font-weight: 700;
+      color: var(--text); line-height: 1; margin-bottom: 0.4rem;
+      letter-spacing: -0.03em;
+    }
+    .stat-label { font-size: 0.78rem; color: var(--muted); font-weight: 400; }
+
+    /* ─── EXPERIENCE ─── */
+    .exp-list { display: flex; flex-direction: column; gap: 0; }
+    .exp-item {
+      padding: 1.75rem 0 1.75rem 2rem;
+      border-left: 1px solid var(--border);
+      margin-left: 0.5rem; position: relative;
+      transition: border-color 0.3s;
+    }
+    .exp-item::before {
+      content: ""; position: absolute; left: -4px; top: 24px;
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--border); border: 1px solid var(--bg);
+      transition: all 0.3s;
+    }
+    .exp-item:hover { border-color: #333; }
+    .exp-item:hover::before { background: #fff; box-shadow: 0 0 10px rgba(255,255,255,0.3); }
+    .exp-meta {
+      display: flex; justify-content: space-between;
+      align-items: baseline; gap: 1rem; margin-bottom: 0.25rem; flex-wrap: wrap;
+    }
+    .exp-title {
+      font-family: "Outfit", sans-serif;
+      font-size: 1.15rem; font-weight: 600; color: var(--text);
+    }
+    .exp-date {
+      font-size: 0.82rem; color: var(--muted);
+      font-family: "SF Mono", "Fira Code", monospace; white-space: nowrap;
+    }
+    .exp-company {
+      font-size: 0.92rem; color: var(--muted); margin-bottom: 1rem;
+    }
+    .exp-bullets {
+      display: flex; flex-direction: column; gap: 0.5rem;
+      padding-left: 1rem;
+    }
+    .exp-bullet {
+      font-size: 0.9rem; color: #999; line-height: 1.6; list-style: square;
+    }
+
+    /* ─── PROJECTS ─── */
+    .proj-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.5rem;
+    }
+    .proj-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+      display: flex; flex-direction: column;
+      text-decoration: none; color: inherit;
+    }
+    .proj-card:hover {
+      border-color: #333; transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+    }
+    .proj-banner {
+      height: 130px;
+      display: flex; align-items: center; justify-content: center;
+      border-bottom: 1px solid var(--border); position: relative;
+    }
+    .proj-banner svg { opacity: 0.35; transition: all 0.3s; }
+    .proj-card:hover .proj-banner svg { opacity: 0.7; transform: scale(1.08); }
+    .banner-green { background: linear-gradient(135deg, rgba(16,185,129,0.07), rgba(6,182,212,0.07)); }
+    .banner-purple { background: linear-gradient(135deg, rgba(139,92,246,0.07), rgba(167,139,250,0.07)); }
+    .banner-amber { background: linear-gradient(135deg, rgba(245,158,11,0.07), rgba(239,68,68,0.07)); }
+    .banner-blue { background: linear-gradient(135deg, rgba(59,130,246,0.07), rgba(139,92,246,0.07)); }
+    .proj-body { padding: 1.4rem; flex: 1; display: flex; flex-direction: column; }
+    .proj-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.7rem; }
+    .proj-name {
+      font-family: "Outfit", sans-serif;
+      font-size: 1.1rem; font-weight: 600; color: var(--text);
+    }
+    .proj-year { font-size: 0.78rem; color: var(--muted); font-family: monospace; }
+    .proj-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.55; flex: 1; margin-bottom: 1.2rem; }
+    .proj-footer { display: flex; justify-content: space-between; align-items: flex-end; }
+    .proj-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .proj-tag {
+      font-size: 0.72rem; color: var(--muted);
+      background: var(--surface2); border: 1px solid var(--border);
+      padding: 3px 8px; border-radius: 4px;
+      font-family: "SF Mono", monospace;
+    }
+    .proj-link {
+      font-size: 0.8rem; color: var(--muted); text-decoration: none;
+      display: flex; align-items: center; gap: 0.3rem;
+      transition: color 0.2s; white-space: nowrap;
+    }
+    .proj-link:hover { color: var(--text); }
+
+    /* ─── SKILLS ─── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.25rem;
+    }
+    .skill-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.25rem 1.4rem;
+      transition: all 0.2s;
+    }
+    .skill-card:hover { border-color: #333; background: var(--surface2); }
+    .skill-cat {
+      font-size: 0.7rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--muted); margin-bottom: 0.9rem;
+    }
+    .skill-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .skill-chip {
+      font-size: 0.82rem; color: #bbb;
+      background: var(--bg); border: 1px solid var(--border);
+      padding: 0.3rem 0.7rem; border-radius: 6px;
+      transition: all 0.2s;
+    }
+    .skill-chip:hover { border-color: #444; color: var(--text); }
+
+    /* ─── EDUCATION ─── */
+    .edu-list { display: flex; flex-direction: column; gap: 0; }
+
+    /* ─── CONTACT ─── */
+    #contact {
+      margin: 0;
+    }
+    .contact-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 20px; padding: 5rem 2rem; text-align: center;
+      position: relative; overflow: hidden;
+      transition: border-color 0.3s;
+    }
+    .contact-card::before {
+      content: ""; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(255,255,255,0.025), transparent);
+      pointer-events: none;
+    }
+    .contact-card:hover { border-color: #2a2a2a; }
+    .contact-title {
+      font-family: "Outfit", sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      font-weight: 700; letter-spacing: -0.03em;
+      margin-bottom: 0.8rem;
+    }
+    .contact-sub {
+      color: var(--muted); font-size: 1rem;
+      max-width: 460px; margin: 0 auto 2.5rem;
+      line-height: 1.6; font-weight: 300;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      padding: 2.5rem 0;
+      border-top: 1px solid var(--border);
+      text-align: center; color: var(--muted);
+      font-size: 0.85rem; font-weight: 300;
+    }
+
+    /* ─── LANGUAGE SYSTEM ─── */
+    html[lang="it"] .en { display: none !important; }
+    html[lang="en"] .it { display: none !important; }
+
+    /* ─── REVEAL ANIMATION ─── */
+    .reveal {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 640px) {
+      nav { padding: 0 1.25rem; }
+      .nav-links { display: none; }
+      .container { padding: 0 1.25rem; }
+      #hero { padding: 120px 0 70px; }
+      .proj-grid { grid-template-columns: 1fr; }
+      .what-grid { grid-template-columns: 1fr 1fr; }
+      .stats-bar { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 400px) {
+      .what-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── NAVBAR ─── -->
+  <nav id="navbar">
+    <a href="#hero" class="nav-logo">MM<span>.portfolio</span></a>
+    <ul class="nav-links">
+      <li><a href="#what-i-do" class="en">What I Do</a><a href="#what-i-do" class="it">Chi Sono</a></li>
+      <li><a href="#experience" class="en">Experience</a><a href="#experience" class="it">Esperienza</a></li>
+      <li><a href="#projects" class="en">Projects</a><a href="#projects" class="it">Progetti</a></li>
+      <li><a href="#skills" class="en">Skills</a><a href="#skills" class="it">Skill</a></li>
+      <li><a href="#contact" class="en">Contact</a><a href="#contact" class="it">Contatti</a></li>
+    </ul>
+    <div class="nav-right">
+      <button onclick="toggleLang()" class="lang-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        <span id="lang-label">IT</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ─── HERO ─── -->
+  <section id="hero">
+    <div class="hero-grid-bg"></div>
+    <div class="container">
+      <div class="flower-wrapper">
+        <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="0.5" style="width:100%;height:100%">
+          <circle cx="50" cy="50" r="15"/><circle cx="50" cy="35" r="15"/>
+          <circle cx="63" cy="42.5" r="15"/><circle cx="63" cy="57.5" r="15"/>
+          <circle cx="50" cy="65" r="15"/><circle cx="37" cy="57.5" r="15"/>
+          <circle cx="37" cy="42.5" r="15"/>
+        </svg>
+      </div>
+
+      <h1 class="hero-title">
+        Hi, I'm Michele.<br/>
+        <span class="muted en">Tech Business Analyst &amp; AI Process Engineer.</span>
+        <span class="muted it">Tech Business Analyst &amp; AI Process Engineer.</span>
+      </h1>
+
+      <div class="typewriter-wrap">
+        <span id="typewriter-text"></span><span class="cursor"></span>
+      </div>
+
+      <div class="hero-ctas">
+        <a href="mailto:michele.minardi.1992@gmail.com" class="btn btn-primary">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          <span class="en">Get In Touch</span><span class="it">Scrivimi</span>
+        </a>
+        <a href="https://linkedin.com/in/michele-minardi-/" target="_blank" rel="noopener" class="btn btn-ghost">
+          LinkedIn
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+        </a>
+        <a href="https://github.com/Michele-Minardi" target="_blank" rel="noopener" class="btn-icon btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── STATS ─── -->
+  <div class="container reveal">
+    <div class="stats-bar">
+      <div class="stat-item">
+        <div class="stat-number">3+</div>
+        <div class="stat-label en">Years as Tech BA</div>
+        <div class="stat-label it">Anni come Tech BA</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">7+</div>
+        <div class="stat-label en">Years Total Exp.</div>
+        <div class="stat-label it">Anni di Esperienza</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">110</div>
+        <div class="stat-label en">Graduated cum laude</div>
+        <div class="stat-label it">Laurea con Lode</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">3</div>
+        <div class="stat-label en">Countries Worked</div>
+        <div class="stat-label it">Paesi di Lavoro</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── WHAT I DO ─── -->
+  <section id="what-i-do">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label en">What I Do</span>
+        <span class="section-label it">Cosa Faccio</span>
+        <div class="section-line"></div>
+      </div>
+      <div class="what-grid">
+        <div class="what-card reveal">
+          <div class="what-icon green">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg>
+          </div>
+          <div class="what-title en">Business Analysis</div>
+          <div class="what-title it">Analisi di Business</div>
+          <div class="what-desc en">Translating fuzzy stakeholder needs into precise User Stories, process maps and acceptance criteria that dev teams can actually build.</div>
+          <div class="what-desc it">Traduco i bisogni degli stakeholder in User Stories chiare, mappe di processo e criteri di accettazione pronti per i team di sviluppo.</div>
+        </div>
+        <div class="what-card reveal">
+          <div class="what-icon purple">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10H12V2z"/><path d="M21.18 8.02A10 10 0 0 0 12 2v10l9.18-3.98z"/></svg>
+          </div>
+          <div class="what-title en">Data & Reporting</div>
+          <div class="what-title it">Dati e Reporting</div>
+          <div class="what-desc en">Building SQL queries, Python scripts and Power BI dashboards to monitor SLAs, queues and business performance in real-time.</div>
+          <div class="what-desc it">Query SQL avanzate, script Python e dashboard Power BI per monitorare SLA, code operative e performance di business in tempo reale.</div>
+        </div>
+        <div class="what-card reveal">
+          <div class="what-icon blue">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg>
+          </div>
+          <div class="what-title en">AI-Assisted Workflows</div>
+          <div class="what-title it">Workflow con IA</div>
+          <div class="what-desc en">Leveraging LLMs and prompt engineering to automate documentation, accelerate analysis and reshape how business processes are designed.</div>
+          <div class="what-desc it">Utilizzo di LLM e prompt engineering per automatizzare documentazione, accelerare l'analisi e ridisegnare i processi di business.</div>
+        </div>
+        <div class="what-card reveal">
+          <div class="what-icon amber">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <div class="what-title en">Digital Process Design</div>
+          <div class="what-title it">Processi Digitali</div>
+          <div class="what-desc en">End-to-end design of digital lending and credit processes for fintechs and regulated environments — from onboarding to automated workflows.</div>
+          <div class="what-desc it">Progettazione end-to-end di processi digitali per fintech e ambienti regolamentati: dall'onboarding all'automazione dei workflow operativi.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── EXPERIENCE ─── -->
+  <section id="experience">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label en">Work Experience</span>
+        <span class="section-label it">Esperienza Lavorativa</span>
+        <div class="section-line"></div>
+      </div>
+      <div class="exp-list">
+
+        <div class="exp-item reveal">
+          <div class="exp-meta">
+            <h3 class="exp-title en">Tech Business Analyst / Digital Process Engineer</h3>
+            <h3 class="exp-title it">Tech Business Analyst / Digital Process Engineer</h3>
+            <span class="exp-date">Nov 2022 — Present</span>
+          </div>
+          <p class="exp-company">Moltiply Group · Italy</p>
+          <ul class="exp-bullets en">
+            <li class="exp-bullet">Designed end-to-end digital processes for business lending platforms (SME loans, credit lines, guaranteed financing) in Agile environments.</li>
+            <li class="exp-bullet">Translated business needs into process maps, User Stories and acceptance criteria in Azure DevOps for delivery teams.</li>
+            <li class="exp-bullet">Coordinated frontend/backend delivery, API integrations and SFTP data exchanges between proprietary platforms and external partners.</li>
+            <li class="exp-bullet">Built SQL (MS SQL Server) reports and Power BI dashboards to monitor SLAs, queues, KPIs and process performance.</li>
+            <li class="exp-bullet">Leveraged GenAI tools (Microsoft 365 Copilot, Claude, Antigravity) to accelerate requirements drafting, documentation and data analysis.</li>
+          </ul>
+          <ul class="exp-bullets it">
+            <li class="exp-bullet">Progettazione di processi digitali end-to-end per piattaforme di finanziamento alle PMI (prestiti, linee di credito, finanziamenti garantiti) in contesti Agile.</li>
+            <li class="exp-bullet">Traduzione dei bisogni di business in User Stories e criteri di accettazione in Azure DevOps per i team di delivery.</li>
+            <li class="exp-bullet">Coordinamento di frontend/backend, integrazioni API e scambi dati SFTP tra piattaforme proprietarie e partner esterni.</li>
+            <li class="exp-bullet">Sviluppo di report SQL e dashboard Power BI per il monitoraggio di SLA, code operative e KPI di processo.</li>
+            <li class="exp-bullet">Utilizzo di tool di AI generativa (Microsoft 365 Copilot, Claude, Antigravity) per velocizzare documentazione, requisiti e analisi dati.</li>
+          </ul>
+        </div>
+
+        <div class="exp-item reveal">
+          <div class="exp-meta">
+            <h3 class="exp-title en">Credit Risk &amp; Fraud Analyst</h3>
+            <h3 class="exp-title it">Analista Credit Risk &amp; Frodi</h3>
+            <span class="exp-date">Dec 2018 — Jan 2021</span>
+          </div>
+          <p class="exp-company">Gruppo Montenegro · Italy</p>
+          <ul class="exp-bullets en">
+            <li class="exp-bullet">Led anti-fraud investigations on falsified bank transfers, cheques and fraudulent purchase orders.</li>
+            <li class="exp-bullet">Assessed creditworthiness through financial statement analysis and payment-data review; approved or rejected orders in SAP.</li>
+            <li class="exp-bullet">Produced risk monitoring reports for management and sales teams.</li>
+          </ul>
+          <ul class="exp-bullets it">
+            <li class="exp-bullet">Conduzione di indagini antifrode su bonifici falsificati, assegni e ordini di acquisto fraudolenti.</li>
+            <li class="exp-bullet">Valutazione dell'affidabilità creditizia tramite analisi di bilancio e dati di pagamento; approvazione/rifiuto ordini in SAP.</li>
+            <li class="exp-bullet">Produzione di reportistica di rischio per il management e la forza vendita.</li>
+          </ul>
+        </div>
+
+        <div class="exp-item reveal">
+          <div class="exp-meta">
+            <h3 class="exp-title en">Credit &amp; Treasury Analyst</h3>
+            <h3 class="exp-title it">Analista Crediti e Tesoreria</h3>
+            <span class="exp-date">Mar 2017 — Dec 2018</span>
+          </div>
+          <p class="exp-company">UNIGRA' · Italy</p>
+          <ul class="exp-bullets en">
+            <li class="exp-bullet">Managed credit risk assessment and corporate treasury cash flow reporting.</li>
+          </ul>
+          <ul class="exp-bullets it">
+            <li class="exp-bullet">Gestione della valutazione del rischio di credito e reporting della tesoreria aziendale.</li>
+          </ul>
+        </div>
+
+        <div class="exp-item reveal">
+          <div class="exp-meta">
+            <h3 class="exp-title en">Marketing Analyst</h3>
+            <h3 class="exp-title it">Analista Marketing</h3>
+            <span class="exp-date">Feb 2015 — Jun 2015</span>
+          </div>
+          <p class="exp-company">Acantho (HERA COMM) · Italy</p>
+          <ul class="exp-bullets en">
+            <li class="exp-bullet">Market research and customer segmentation for B2B telecom campaigns.</li>
+          </ul>
+          <ul class="exp-bullets it">
+            <li class="exp-bullet">Ricerca di mercato e segmentazione clienti per campagne B2B nel settore telecomunicazioni.</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── PROJECTS ─── -->
+  <section id="projects">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label en">Selected Projects</span>
+        <span class="section-label it">Progetti Selezionati</span>
+        <div class="section-line"></div>
+      </div>
+      <div class="proj-grid">
+
+        <!-- Project 1: AI Requirements Gen -->
+        <div class="proj-card reveal">
+          <div class="proj-banner banner-green">
+            <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg>
+          </div>
+          <div class="proj-body">
+            <div class="proj-top">
+              <span class="proj-name">AI Requirements Generator</span>
+              <span class="proj-year">2026</span>
+            </div>
+            <p class="proj-desc en">Converts raw stakeholder interview notes or meeting transcripts into structured User Stories and Acceptance Criteria — formatted and ready for Azure DevOps. Built with Python + LLM API.</p>
+            <p class="proj-desc it">Trasforma note di riunione e interviste a stakeholder in User Stories e Criteri di Accettazione strutturati, formattati e pronti per Azure DevOps. Realizzato con Python e API LLM.</p>
+            <div class="proj-footer">
+              <div class="proj-tags">
+                <span class="proj-tag">Python</span>
+                <span class="proj-tag">LLM API</span>
+                <span class="proj-tag">Azure DevOps</span>
+                <span class="proj-tag">Prompt Eng.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2: Ailingo -->
+        <div class="proj-card reveal">
+          <div class="proj-banner banner-blue">
+            <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <div class="proj-body">
+            <div class="proj-top">
+              <span class="proj-name">Ailingo</span>
+              <span class="proj-year">2025</span>
+            </div>
+            <p class="proj-desc en">An AI-powered language learning platform with personalized exercises, dynamic content generation and adaptive learning paths. Built with Next.js, Python and Generative AI.</p>
+            <p class="proj-desc it">Piattaforma di apprendimento linguistico basata su IA, con esercizi personalizzati, generazione dinamica di contenuti e percorsi adattivi. Realizzata con Next.js, Python e IA Generativa.</p>
+            <div class="proj-footer">
+              <div class="proj-tags">
+                <span class="proj-tag">Next.js</span>
+                <span class="proj-tag">Python</span>
+                <span class="proj-tag">GenAI</span>
+                <span class="proj-tag">TypeScript</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3: OpenPrometeo -->
+        <a href="https://www.instagram.com/openprometeo_" target="_blank" rel="noopener noreferrer" class="proj-card reveal">
+          <div class="proj-banner banner-purple">
+            <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+          </div>
+          <div class="proj-body">
+            <div class="proj-top">
+              <span class="proj-name">OpenPrometeo</span>
+              <span class="proj-year">2020 —</span>
+            </div>
+            <p class="proj-desc en">An Instagram philosophy &amp; art page exploring mental models, existential themes and visual storytelling. 12K+ followers, 1,400+ original posts. The folio between Psychology and Aesthetics.</p>
+            <p class="proj-desc it">Un canale Instagram su filosofia, modelli mentali e storytelling visivo. Oltre 12K follower e 1.400+ post originali. Il confine tra Psicologia ed Estetica.</p>
+            <div class="proj-footer">
+              <div class="proj-tags">
+                <span class="proj-tag">Philosophy</span>
+                <span class="proj-tag">Visual Art</span>
+                <span class="proj-tag">12K+ followers</span>
+              </div>
+              <span class="proj-link en">View ↗</span>
+              <span class="proj-link it">Apri ↗</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Project 4: Games -->
+        <div class="proj-card reveal">
+          <div class="proj-banner banner-amber">
+            <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="6" x2="10" y1="12" y2="12"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="15" x2="15.01" y1="13" y2="13"/><line x1="18" x2="18.01" y1="11" y2="11"/><rect width="20" height="12" x="2" y="6" rx="3"/></svg>
+          </div>
+          <div class="proj-body">
+            <div class="proj-top">
+              <span class="proj-name">Worms &amp; Space Impact</span>
+              <span class="proj-year">2024</span>
+            </div>
+            <p class="proj-desc en">Modern browser recreations of classic arcade games built from scratch with HTML5 Canvas and vanilla JavaScript — showcasing state machines, physics and animations.</p>
+            <p class="proj-desc it">Repliche moderne dei celebri giochi arcade realizzate da zero con HTML5 Canvas e JavaScript vanilla. Logica a stati, fisica e animazioni hand-coded.</p>
+            <div class="proj-footer">
+              <div class="proj-tags">
+                <span class="proj-tag">JavaScript</span>
+                <span class="proj-tag">Canvas API</span>
+                <span class="proj-tag">HTML5</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SKILLS ─── -->
+  <section id="skills">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label en">Technical Skills</span>
+        <span class="section-label it">Competenze Tecniche</span>
+        <div class="section-line"></div>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-card reveal">
+          <div class="skill-cat en">Business Analysis</div>
+          <div class="skill-cat it">Analisi di Business</div>
+          <div class="skill-chips">
+            <span class="skill-chip">User Stories</span>
+            <span class="skill-chip">Process Mapping</span>
+            <span class="skill-chip">UAT</span>
+            <span class="skill-chip">Backlog Mgmt</span>
+            <span class="skill-chip">Agile / Scrum</span>
+          </div>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-cat en">Data & Reporting</div>
+          <div class="skill-cat it">Dati e Reporting</div>
+          <div class="skill-chips">
+            <span class="skill-chip">SQL (MS SQL Server)</span>
+            <span class="skill-chip">Python</span>
+            <span class="skill-chip">Power BI</span>
+            <span class="skill-chip">Apache Superset</span>
+          </div>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-cat en">AI & Productivity</div>
+          <div class="skill-cat it">AI e Produttività</div>
+          <div class="skill-chips">
+            <span class="skill-chip">Prompt Engineering</span>
+            <span class="skill-chip">M365 Copilot</span>
+            <span class="skill-chip">Claude / GPT</span>
+            <span class="skill-chip">Antigravity Agent</span>
+          </div>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-cat en">Tools & Platforms</div>
+          <div class="skill-cat it">Strumenti</div>
+          <div class="skill-chips">
+            <span class="skill-chip">Azure DevOps</span>
+            <span class="skill-chip">Figma</span>
+            <span class="skill-chip">SAP</span>
+            <span class="skill-chip">API / SFTP</span>
+            <span class="skill-chip">Excel (Advanced)</span>
+          </div>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-cat en">Finance & Risk</div>
+          <div class="skill-cat it">Finanza e Rischio</div>
+          <div class="skill-chips">
+            <span class="skill-chip">Credit Risk</span>
+            <span class="skill-chip">Anti-Fraud</span>
+            <span class="skill-chip">SME Lending</span>
+            <span class="skill-chip">Financial Statements</span>
+          </div>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-cat en">Languages</div>
+          <div class="skill-cat it">Lingue</div>
+          <div class="skill-chips">
+            <span class="skill-chip">Italian (Native)</span>
+            <span class="skill-chip">English (Fluent)</span>
+            <span class="skill-chip">Spanish (Basic)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── EDUCATION ─── -->
+  <section id="education">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label en">Education</span>
+        <span class="section-label it">Formazione</span>
+        <div class="section-line"></div>
+      </div>
+      <div class="exp-list edu-list">
+        <div class="exp-item reveal">
+          <div class="exp-meta">
+            <h3 class="exp-title en">MSc in Statistical, Financial &amp; Actuarial Sciences</h3>
+            <h3 class="exp-title it">Laurea Magistrale in Scienze Statistiche, Finanziarie e Attuariali</h3>
+            <span class="exp-date">2014 — 2016</span>
+          </div>
+          <p class="exp-company">University of Bologna · 110/110 cum laude</p>
+        </div>
+        <div class="exp-item reveal">
+          <div class="exp-meta">
+            <h3 class="exp-title en">Erasmus Exchange Program</h3>
+            <h3 class="exp-title it">Programma Erasmus</h3>
+            <span class="exp-date">2015 — 2016</span>
+          </div>
+          <p class="exp-company">Anglo-American University, Prague</p>
+        </div>
+        <div class="exp-item reveal">
+          <div class="exp-meta">
+            <h3 class="exp-title en">BSc in Statistics, Business &amp; Marketing</h3>
+            <h3 class="exp-title it">Laurea Triennale in Statistica, Impresa e Marketing</h3>
+            <span class="exp-date">2011 — 2014</span>
+          </div>
+          <p class="exp-company">University of Bologna · 108/110</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CONTACT ─── -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact-card reveal">
+        <h2 class="contact-title en">Let's Work Together</h2>
+        <h2 class="contact-title it">Lavoriamo Insieme</h2>
+        <p class="contact-sub en">Open to new opportunities in Tech Business Analysis, AI-assisted process design and digital transformation — especially across CH, IT and remote-first companies.</p>
+        <p class="contact-sub it">Aperto a nuove opportunità in Tech Business Analysis, progettazione di processi con IA e trasformazione digitale — in Svizzera, Italia o in modalità remota.</p>
+        <a href="mailto:michele.minardi.1992@gmail.com" class="btn btn-primary">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          <span class="en">Email Me</span>
+          <span class="it">Scrivimi</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 Michele Minardi. Crafted with care &amp; AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    // ─── LANGUAGE TOGGLE ───
+    let lang = localStorage.getItem('mm-lang') || 'en';
+    document.documentElement.setAttribute('lang', lang);
+    document.getElementById('lang-label').textContent = lang === 'en' ? 'IT' : 'EN';
+
+    function toggleLang() {
+      lang = lang === 'en' ? 'it' : 'en';
+      document.documentElement.setAttribute('lang', lang);
+      localStorage.setItem('mm-lang', lang);
+      document.getElementById('lang-label').textContent = lang === 'en' ? 'IT' : 'EN';
+    }
+
+    // ─── NAV SCROLL ───
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 40) navbar.classList.add('scrolled');
+      else navbar.classList.remove('scrolled');
+    }, { passive: true });
+
+    // ─── TYPEWRITER EFFECT ───
+    const phrases = [
+      "Digital Engineer. Business Analyst. Investor. Traveler. AI Enthusiast.",
+      "Turning stakeholder chaos into clear, buildable requirements.",
+      "Bridging business, data and AI in regulated environments.",
+      "All of the above. None of the above."
+    ];
+    let pi = 0, ci = 0, deleting = false, pauseTimer = null;
+    const el = document.getElementById('typewriter-text');
+
+    function type() {
+      const phrase = phrases[pi];
+      if (!deleting) {
+        el.textContent = phrase.slice(0, ci + 1);
+        ci++;
+        if (ci === phrase.length) {
+          deleting = true;
+          pauseTimer = setTimeout(type, 2200);
+          return;
+        }
+      } else {
+        el.textContent = phrase.slice(0, ci - 1);
+        ci--;
+        if (ci === 0) {
+          deleting = false;
+          pi = (pi + 1) % phrases.length;
+        }
+      }
+      setTimeout(type, deleting ? 30 : 52);
+    }
+    type();
+
+    // ─── REVEAL ON SCROLL ───
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          entry.target.style.transitionDelay = `${(i % 4) * 0.07}s`;
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
