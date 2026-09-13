@@ -9,3 +9,4 @@ desktop.ini
 # Build artifacts
 dist/
 .cache/
+.netlify/
