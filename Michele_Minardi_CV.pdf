@@ -1,0 +1,93 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 5 0 R /F2 6 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 1893 >>
+stream
+BT
+/F2 20 Tf
+50 780 Td
+(Michele Minardi - Executive CV) Tj
+/F1 11 Tf
+0 -24 Td
+(Tech Business Analyst & AI Process Engineer | Bologna, Italy | michele.minardi.1992@gmail.com) Tj
+0 -15 Td
+(----------------------------------------------------------------------------------------------------------------) Tj
+0 -20 Td
+/F2 13 Tf
+0 -18 Td
+(SUMMARY) Tj
+/F1 10 Tf
+0 -14 Td
+(Tech Business Analyst & Digital Process Engineer with an MSc in Statistical Sciences \(110L\).) Tj
+0 -14 Td
+(Experienced in digital lending platforms, fintech workflows, SQL analytics and AI agent design.) Tj
+0 -10 Td
+/F2 13 Tf
+0 -18 Td
+(PROFESSIONAL EXPERIENCE) Tj
+/F1 10 Tf
+0 -14 Td
+(- Tech Business Analyst @ Moltiply Group \(Nov 2022 - Present\)) Tj
+0 -14 Td
+(  Designed end-to-end digital lending processes, Azure DevOps user stories and API integrations.) Tj
+0 -14 Td
+(- Credit Risk & Fraud Analyst @ Gruppo Montenegro \(Dec 2018 - Jan 2021\)) Tj
+0 -14 Td
+(  Managed anti-fraud investigations, SAP order underwriting and corporate credit assessment.) Tj
+0 -14 Td
+(- Credit & Treasury Analyst @ UNIGRA \(Mar 2017 - Dec 2018\)) Tj
+0 -14 Td
+(  Corporate credit risk management and treasury cash flow reporting.) Tj
+0 -10 Td
+/F2 13 Tf
+0 -18 Td
+(EDUCATION) Tj
+/F1 10 Tf
+0 -14 Td
+(- MSc in Statistical, Financial & Actuarial Sciences \(110/110 cum laude\) - University of Bologna) Tj
+0 -14 Td
+(- Erasmus Exchange Program - Anglo-American University, Prague) Tj
+0 -14 Td
+(- BSc in Statistics, Business & Marketing \(108/110\) - University of Bologna) Tj
+0 -10 Td
+/F2 13 Tf
+0 -18 Td
+(FEATURED PROJECTS) Tj
+/F1 10 Tf
+0 -14 Td
+(- EULANCE: Pan-European freelance infrastructure with PSD2 Escrow and Art. 196 reverse-charge VAT.) Tj
+0 -14 Td
+(- AILINGO: CEFR English Fluency & SuperMemo SM-2 Spaced Repetition platform.) Tj
+0 -14 Td
+(- Credit Risk Engine: Automated probability-of-default \(PD\) and STP underwriting simulator.) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+6 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000251 00000 n 
+0000002196 00000 n 
+0000002266 00000 n 
+trailer
+<< /Size 7 /Root 1 0 R >>
+startxref
+2341
+%%EOF

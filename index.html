@@ -180,6 +180,24 @@
       font-size: clamp(1rem, 2vw, 1.15rem);
       color: var(--muted); font-weight: 300;
       max-width: 620px; margin-bottom: 2.5rem; line-height: 1.7;
+      min-height: 3.8rem; /* Fix Cumulative Layout Shift (CLS) */
+    }
+    /* ─── MOBILE DRAWER MENU ─── */
+    .mobile-menu-btn {
+      display: none; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; padding: 0.45rem 0.65rem; color: var(--text); cursor: pointer;
+    }
+    .mobile-menu-btn:hover { background: var(--surface2); }
+    .mobile-drawer {
+      display: none; position: fixed; top: 64px; left: 0; right: 0;
+      background: rgba(14,14,14,0.98); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border); padding: 1.5rem 2rem; z-index: 199;
+      flex-direction: column; gap: 1rem;
+    }
+    .mobile-drawer.active { display: flex; }
+    .mobile-drawer a {
+      color: var(--text); text-decoration: none; font-size: 1rem; font-weight: 500;
+      padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);
     }
     .cursor { 
       display: inline-block; width: 2px; height: 1.1em;
@@ -564,6 +582,7 @@
     @media (max-width: 640px) {
       nav { padding: 0 1.25rem; }
       .nav-links { display: none; }
+      .mobile-menu-btn { display: inline-flex; align-items: center; justify-content: center; }
       .container { padding: 0 1.25rem; }
       #hero { padding: 110px 0 50px; }
       .hero-title { font-size: 2.1rem; line-height: 1.15; margin-bottom: 1rem; }
@@ -619,12 +638,22 @@
       <li><a href="#contact" class="en">Contact</a><a href="#contact" class="it">Contatti</a></li>
     </ul>
     <div class="nav-right">
-      <button onclick="toggleLang()" class="lang-btn">
+      <button onclick="toggleLang()" class="lang-btn" aria-label="Toggle language">
         <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
         <span id="lang-label">IT</span>
       </button>
+      <button onclick="toggleMobileMenu()" class="mobile-menu-btn" aria-label="Toggle navigation menu">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
     </div>
   </nav>
+  <div id="mobile-drawer" class="mobile-drawer">
+    <a href="#what-i-do" onclick="closeMobileMenu()"><span class="en">What I Do</span><span class="it">Chi Sono</span></a>
+    <a href="#experience" onclick="closeMobileMenu()"><span class="en">Experience</span><span class="it">Esperienza</span></a>
+    <a href="#projects" onclick="closeMobileMenu()"><span class="en">Projects</span><span class="it">Progetti</span></a>
+    <a href="#skills" onclick="closeMobileMenu()"><span class="en">Skills</span><span class="it">Competenze</span></a>
+    <a href="#contact" onclick="closeMobileMenu()"><span class="en">Contact</span><span class="it">Contatti</span></a>
+  </div>
 
   <!-- ─── HERO ─── -->
   <section id="hero">
@@ -1222,16 +1251,38 @@
   </div>
 
   <script>
-    // ─── LANGUAGE TOGGLE ───
+    // ─── LANGUAGE & MOBILE NAV ───
     let lang = localStorage.getItem('mm-lang') || 'en';
     document.documentElement.setAttribute('lang', lang);
     document.getElementById('lang-label').textContent = lang === 'en' ? 'IT' : 'EN';
+
+    let activeDemoId = null;
 
     function toggleLang() {
       lang = lang === 'en' ? 'it' : 'en';
       document.documentElement.setAttribute('lang', lang);
       localStorage.setItem('mm-lang', lang);
       document.getElementById('lang-label').textContent = lang === 'en' ? 'IT' : 'EN';
+
+      // Reset typewriter to new language
+      pi = 0; ci = 0; deleting = false;
+      if (pauseTimer) clearTimeout(pauseTimer);
+      type();
+
+      // If a modal is open, re-render it in the selected language
+      if (activeDemoId) {
+        openDemo(activeDemoId);
+      }
+    }
+
+    function toggleMobileMenu() {
+      const drawer = document.getElementById('mobile-drawer');
+      if (drawer) drawer.classList.toggle('active');
+    }
+
+    function closeMobileMenu() {
+      const drawer = document.getElementById('mobile-drawer');
+      if (drawer) drawer.classList.remove('active');
     }
 
     // ─── NAV SCROLL ───
@@ -1241,18 +1292,28 @@
       else navbar.classList.remove('scrolled');
     }, { passive: true });
 
-    // ─── TYPEWRITER EFFECT ───
-    const phrases = [
+    // ─── BILINGUAL TYPEWRITER EFFECT ───
+    const phrasesEn = [
       "Digital Engineer. Business Analyst. Investor. Traveler. AI Enthusiast.",
       "Turning stakeholder chaos into clear, buildable requirements.",
       "Bridging business, data and AI in regulated environments.",
       "All of the above. None of the above."
     ];
+    const phrasesIt = [
+      "Digital Engineer. Business Analyst. Investor. Traveler. AI Enthusiast.",
+      "Trasformo il caos degli stakeholder in requisiti chiari e rilasciabili.",
+      "Collego business, analisi dati e AI in contesti regolamentati.",
+      "Tutto quanto sopra. Niente di tutto questo."
+    ];
+
     let pi = 0, ci = 0, deleting = false, pauseTimer = null;
     const el = document.getElementById('typewriter-text');
 
     function type() {
-      const phrase = phrases[pi];
+      if (!el) return;
+      const currentList = (document.documentElement.getAttribute('lang') === 'it') ? phrasesIt : phrasesEn;
+      const phrase = currentList[pi % currentList.length];
+
       if (!deleting) {
         el.textContent = phrase.slice(0, ci + 1);
         ci++;
@@ -1266,7 +1327,7 @@
         ci--;
         if (ci === 0) {
           deleting = false;
-          pi = (pi + 1) % phrases.length;
+          pi = (pi + 1) % currentList.length;
         }
       }
       setTimeout(type, deleting ? 30 : 52);
@@ -1284,10 +1345,12 @@
         }
       });
     }, { threshold: 0.12 });
-    reveals.forEach(el => observer.observe(el));
+    reveals.forEach(e => observer.observe(e));
 
     // ─── INTERACTIVE DEMO SUITE ───
     let currentGameLoop = null;
+    let activeKeydownListener = null;
+    let activeKeyupListener = null;
 
     function handleModalOverlayClick(e) {
       if (e.target.classList.contains('modal-overlay')) closeDemo();
@@ -1300,27 +1363,32 @@
     function closeDemo() {
       const modalOverlay = document.getElementById('demo-modal');
       if (modalOverlay) modalOverlay.classList.remove('active');
+      activeDemoId = null;
       if (currentGameLoop) {
         cancelAnimationFrame(currentGameLoop);
         currentGameLoop = null;
       }
+      if (activeKeydownListener) {
+        window.removeEventListener('keydown', activeKeydownListener);
+        activeKeydownListener = null;
+      }
+      if (activeKeyupListener) {
+        window.removeEventListener('keyup', activeKeyupListener);
+        activeKeyupListener = null;
+      }
     }
 
     function handleCvDownload(e) {
-      fetch('Michele_Minardi_CV.pdf', { method: 'HEAD' })
-        .then(res => {
-          if (!res.ok) {
-            if (e) e.preventDefault();
-            openDemo('cv-preview');
-          }
-        })
-        .catch(() => {
-          if (e) e.preventDefault();
-          openDemo('cv-preview');
-        });
+      const link = document.createElement('a');
+      link.href = 'Michele_Minardi_CV.pdf';
+      link.download = 'Michele_Minardi_CV.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
 
     function openDemo(demoId) {
+      activeDemoId = demoId;
       const modalOverlay = document.getElementById('demo-modal');
       const container = document.getElementById('modal-dynamic-content');
       if (!modalOverlay || !container) return;
@@ -1328,6 +1396,14 @@
       if (currentGameLoop) {
         cancelAnimationFrame(currentGameLoop);
         currentGameLoop = null;
+      }
+      if (activeKeydownListener) {
+        window.removeEventListener('keydown', activeKeydownListener);
+        activeKeydownListener = null;
+      }
+      if (activeKeyupListener) {
+        window.removeEventListener('keyup', activeKeyupListener);
+        activeKeyupListener = null;
       }
 
       if (demoId === 'eulance') {
@@ -1347,50 +1423,59 @@
       modalOverlay.classList.add('active');
     }
 
-    // ─── DEMO EULANCE SHOWCASE ───
+    // ─── DEMO EULANCE: SHOWCASE & LIVE INTERACTIVE FEE CALCULATOR ───
     function renderEulanceDemo(container) {
       const isIt = document.documentElement.getAttribute('lang') === 'it';
       container.innerHTML = `
         <div class="demo-header">
           <div style="display:inline-flex; align-items:center; gap:0.5rem; background:rgba(245,158,11,0.12); color:#f59e0b; padding:4px 10px; border-radius:999px; font-size:0.75rem; font-weight:600; margin-bottom:0.75rem;">
-            <span>★</span> ${isIt ? 'Caso Studio di Punta & Prototipo Live' : 'Featured Case Study & Live Prototype'}
+            <span>★</span> ${isIt ? 'Vetrina Progetto #1 &amp; Calcolatore Margini' : 'Featured Venture #1 &amp; Margin Calculator'}
           </div>
           <h3 class="demo-title">EULANCE — Europe's Fair Freelance Platform</h3>
-          <p class="demo-subtitle">${isIt ? 'Concepito, Progettato & Architettato da Michele Minardi | Next.js 16, React 19, Tailwind v4' : 'Conceived, Designed & Architected by Michele Minardi | Next.js 16, React 19, Tailwind v4'}</p>
+          <p class="demo-subtitle">${isIt ? 'Architettato da Michele Minardi | Next.js 16, React 19, Tailwind v4, Escrow PSD2 &amp; IVA Art. 196' : 'Architected by Michele Minardi | Next.js 16, React 19, Tailwind v4, PSD2 Escrow &amp; Art. 196 VAT'}</p>
         </div>
 
+        <!-- Interactive Fee & Escrow Calculator Widget -->
         <div style="background:var(--bg); border:1px solid var(--border); border-radius:12px; padding:1.4rem; margin-bottom:1.5rem;">
-          <p style="font-size:0.9rem; color:var(--muted); line-height:1.6; margin-bottom:1.2rem;">
-            ${isIt 
-              ? 'EULANCE nasce per risolvere i punti di attrito strutturali delle piattaforme freelance d\'oltreoceano (Upwork, Fiverr) per aziende e talenti europei: commissioni sproporzionate, opacità fiscale e assenza di tutele contrattuali armonizzate UE.'
-              : 'EULANCE eliminates the core friction points of traditional overseas freelance marketplaces (Upwork, Fiverr) for European businesses and freelancers: inflated fees, cross-border VAT complexity, and lack of harmonized EU contract protections.'}
+          <div style="font-size:0.85rem; font-weight:700; color:var(--text); margin-bottom:0.4rem; display:flex; justify-content:space-between; align-items:center;">
+            <span>${isIt ? 'Simulatore Interattivo Risparmio Commissioni:' : 'Interactive Fee &amp; Escrow Savings Simulator:'}</span>
+            <span id="eulance-val-display" style="font-family:monospace; color:#34d399; font-size:1.05rem;">€ 5.000</span>
+          </div>
+          <p style="font-size:0.78rem; color:var(--muted); margin-bottom:1rem;">
+            ${isIt ? 'Sposta il cursore del valore contratto per confrontare le commissioni trattenute da Upwork/Fiverr rispetto a EULANCE.' : 'Drag the contract volume slider to benchmark fees taken by US legacy marketplaces vs EULANCE.'}
           </p>
 
-          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:1rem; margin-bottom:1.2rem;">
-            <div style="background:var(--surface); border:1px solid var(--border); padding:1rem; border-radius:10px;">
-              <div style="color:#10b981; font-weight:700; font-size:0.85rem; margin-bottom:0.3rem;">🛡️ 100% Licensed EU Escrow</div>
-              <p style="font-size:0.78rem; color:var(--muted);">${isIt ? 'Fondi congelati all\'avvio e rilasciati all\'approvazione del committente con tutele PSD2.' : 'Funds locked safely in escrow before work begins and released upon client approval under PSD2.'}</p>
+          <input type="range" id="eulance-slider" min="500" max="25000" step="500" value="5000" oninput="updateEulanceCalc()" style="width:100%; accent-color:#f59e0b; cursor:pointer; margin-bottom:1.2rem;">
+
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:0.75rem; margin-bottom:1.2rem;">
+            <div style="background:var(--surface); border:1px solid rgba(239,68,68,0.3); border-radius:10px; padding:0.9rem;">
+              <div style="font-size:0.72rem; color:var(--muted); text-transform:uppercase; font-weight:600;">Upwork (10-20%)</div>
+              <div id="upwork-fee-display" style="font-size:1.15rem; font-weight:700; color:#f87171; font-family:monospace;">-€ 500</div>
+              <div style="font-size:0.7rem; color:var(--muted); margin-top:0.2rem;">${isIt ? 'Commissioni perse dal talento' : 'Lost in platform take-rate'}</div>
             </div>
-            <div style="background:var(--surface); border:1px solid var(--border); padding:1rem; border-radius:10px;">
-              <div style="color:#60a5fa; font-weight:700; font-size:0.85rem; margin-bottom:0.3rem;">⚡ Auto Reverse-Charge VAT</div>
-              <p style="font-size:0.78rem; color:var(--muted);">${isIt ? 'Fatturazione transfrontaliera automatica conforme all\'Art. 196 Direttiva IVA 2006/112/CE.' : 'Automated Article 196 EU VAT Directive invoicing across all 27 EU member states.'}</p>
+
+            <div style="background:var(--surface); border:1px solid rgba(59,130,246,0.3); border-radius:10px; padding:0.9rem;">
+              <div style="font-size:0.72rem; color:var(--muted); text-transform:uppercase; font-weight:600;">EULANCE Standard (5%)</div>
+              <div id="eulance-fee-display" style="font-size:1.15rem; font-weight:700; color:#60a5fa; font-family:monospace;">-€ 250</div>
+              <div style="font-size:0.7rem; color:#34d399; margin-top:0.2rem;" id="eulance-savings-display">+€ 250 risparmiati!</div>
             </div>
-            <div style="background:var(--surface); border:1px solid var(--border); padding:1rem; border-radius:10px;">
-              <div style="color:#8b5cf6; font-weight:700; font-size:0.85rem; margin-bottom:0.3rem;">📜 eIDAS Legal Contract Engine</div>
-              <p style="font-size:0.78rem; color:var(--muted);">${isIt ? 'Accordi legali generati automaticamente e adattati alle giurisdizioni locali dei firmatari.' : 'Auto-generated legal agreements adapting dynamically to member state legal jurisdictions.'}</p>
-            </div>
-            <div style="background:var(--surface); border:1px solid var(--border); padding:1rem; border-radius:10px;">
-              <div style="color:#f59e0b; font-weight:700; font-size:0.85rem; margin-bottom:0.3rem;">💎 0% Founder Promo</div>
-              <p style="font-size:0.78rem; color:var(--muted);">${isIt ? 'Zero commissioni a vita per i primi 500 freelancer fondatori; 5% standard (vs 10-20% competitor).' : '0% lifetime fee for the first 500 founding freelancers; 5% standard vs 10%-20% on Upwork.'}</p>
+
+            <div style="background:rgba(245,158,11,0.06); border:1px solid rgba(245,158,11,0.4); border-radius:10px; padding:0.9rem;">
+              <div style="font-size:0.72rem; color:#f59e0b; text-transform:uppercase; font-weight:700;">★ Founder Tier (0%)</div>
+              <div style="font-size:1.15rem; font-weight:700; color:#f59e0b; font-family:monospace;">€ 0 FEE</div>
+              <div style="font-size:0.7rem; color:var(--muted); margin-top:0.2rem;">${isIt ? 'Primi 500 freelancer a vita' : 'First 500 founders forever'}</div>
             </div>
           </div>
 
-          <div style="background:rgba(255,255,255,0.03); border:1px dashed var(--border); border-radius:10px; padding:1rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+          <div style="background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:0.8rem 1rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; font-size:0.78rem;">
             <div>
-              <div style="font-size:0.85rem; font-weight:600; color:var(--text);">${isIt ? 'Stack Tecnologico Moderno' : 'Modern Engineering Stack'}</div>
-              <div style="font-size:0.75rem; color:var(--muted);">Next.js 16 (App Router) · React 19 · Tailwind CSS v4 · Framer Motion · TypeScript</div>
+              <span style="color:#10b981; font-weight:600;">🛡️ Escrow PSD2:</span>
+              <span style="color:var(--muted);"> ${isIt ? 'Fondi vincolati in conto segregato UE' : 'Locked in segregated EU trust account'}</span>
             </div>
-            <div style="font-size:0.78rem; font-family:monospace; color:#34d399;">eulance.vercel.app</div>
+            <div>
+              <span style="color:#8b5cf6; font-weight:600;">⚡ IVA Art. 196:</span>
+              <span style="color:var(--muted);"> ${isIt ? 'Reverse-Charge 0% per P.IVA intracomunitarie' : 'Reverse-charge automatic 0% B2B'}</span>
+            </div>
           </div>
         </div>
 
@@ -1406,6 +1491,28 @@
           </a>
         </div>
       `;
+      updateEulanceCalc();
+    }
+
+    function updateEulanceCalc() {
+      const slider = document.getElementById('eulance-slider');
+      if (!slider) return;
+      const isIt = document.documentElement.getAttribute('lang') === 'it';
+      const val = parseInt(slider.value);
+
+      const valEl = document.getElementById('eulance-val-display');
+      const upworkEl = document.getElementById('upwork-fee-display');
+      const eulanceEl = document.getElementById('eulance-fee-display');
+      const savingsEl = document.getElementById('eulance-savings-display');
+
+      if (valEl) valEl.textContent = `€ ${val.toLocaleString('it-IT')}`;
+      const upworkFee = Math.round(val * 0.10);
+      const eulanceFee = Math.round(val * 0.05);
+      const savings = upworkFee - eulanceFee;
+
+      if (upworkEl) upworkEl.textContent = `-€ ${upworkFee.toLocaleString('it-IT')}`;
+      if (eulanceEl) eulanceEl.textContent = `-€ ${eulanceFee.toLocaleString('it-IT')}`;
+      if (savingsEl) savingsEl.textContent = isIt ? `+€ ${savings.toLocaleString('it-IT')} risparmiati!` : `+€ ${savings.toLocaleString('it-IT')} saved in fees!`;
     }
 
     // ─── DEMO CV PREVIEW ───
@@ -1419,19 +1526,19 @@
 
         <div style="background:var(--bg); border:1px solid var(--border); border-radius:12px; padding:1.4rem; margin-bottom:1.5rem;">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; flex-wrap:wrap; gap:0.5rem;">
-            <span style="font-weight:600; color:var(--text);">${isIt ? 'Riepilogo Profilo Profilo Professionale' : 'Professional Profile Overview'}</span>
+            <span style="font-weight:600; color:var(--text);">${isIt ? 'Riepilogo Profilo Professionale' : 'Professional Profile Overview'}</span>
             <span style="font-size:0.78rem; background:rgba(16,185,129,0.12); color:#10b981; padding:3px 8px; border-radius:4px;">110/110 Cum Laude MSc</span>
           </div>
           
           <ul style="font-size:0.88rem; color:var(--muted); line-height:1.7; padding-left:1.2rem; margin-bottom:1.2rem;">
             <li><strong>Tech BA @ Moltiply Group</strong>: Design of end-to-end digital lending workflows (SME loans, credit lines) in Agile/Scrum environment.</li>
-            <li><strong>AI & Automation</strong>: Prompt Engineering, Copilot & Agentic workflows for requirements & documentation.</li>
-            <li><strong>Data & Risk</strong>: SQL (MS SQL Server), Power BI, SAP, financial statement credit risk assessment (ex Montenegro & Unigrà).</li>
-            <li><strong>Education</strong>: MSc in Statistical, Financial & Actuarial Sciences (UniBo 110L) + Erasmus in Prague.</li>
+            <li><strong>AI &amp; Automation</strong>: Prompt Engineering, Copilot &amp; Agentic workflows for requirements &amp; documentation.</li>
+            <li><strong>Data &amp; Risk</strong>: SQL (MS SQL Server), Power BI, SAP, financial statement credit risk assessment (ex Montenegro &amp; Unigrà).</li>
+            <li><strong>Education</strong>: MSc in Statistical, Financial &amp; Actuarial Sciences (UniBo 110L) + Erasmus in Prague.</li>
           </ul>
 
           <div style="font-size:0.8rem; color:#888;">
-            💡 <em>${isIt ? 'Per scaricare il documento PDF completo, inserisci il file Michele_Minardi_CV.pdf nella root del progetto o utilizza il pulsante di stampa.' : 'To download the full PDF document, place Michele_Minardi_CV.pdf in the root directory or click Print.'}</em>
+            ✓ <em>${isIt ? 'File Michele_Minardi_CV.pdf pronto per il download immediato o per la stampa web.' : 'Michele_Minardi_CV.pdf is ready for direct download or instant print formatting.'}</em>
           </div>
         </div>
 
@@ -1453,7 +1560,7 @@
       const isIt = document.documentElement.getAttribute('lang') === 'it';
       container.innerHTML = `
         <div class="demo-header">
-          <h3 class="demo-title">${isIt ? 'Generatore Requisiti AI & User Stories' : 'AI Requirements & User Story Generator'}</h3>
+          <h3 class="demo-title">${isIt ? 'Generatore Requisiti AI &amp; User Stories' : 'AI Requirements &amp; User Story Generator'}</h3>
           <p class="demo-subtitle">${isIt ? 'Seleziona un esempio di processo aziendale o scrivi dei requisiti non strutturati per simulare la generazione di User Story in formato Agile/Azure DevOps.' : 'Select a business scenario or input raw stakeholder notes to simulate automated Agile User Story generation.'}</p>
         </div>
         
@@ -1467,7 +1574,7 @@
         
         <button onclick="generateUserStory()" class="btn btn-primary" style="width:100%; justify-content:center;">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-          ${isIt ? 'Genera User Story & Criteri UAT' : 'Generate User Story & UAT Criteria'}
+          ${isIt ? 'Genera User Story &amp; Criteri UAT' : 'Generate User Story &amp; UAT Criteria'}
         </button>
 
         <div id="ai-output-box" class="demo-output-card"></div>
@@ -1563,7 +1670,7 @@ Scenario 2: API Timeout & Resiliency Fallback
       const isIt = document.documentElement.getAttribute('lang') === 'it';
       container.innerHTML = `
         <div class="demo-header">
-          <h3 class="demo-title">${isIt ? 'Simulatore Rischio Credito & Engine Workflow' : 'Credit Risk & Workflow Engine Simulator'}</h3>
+          <h3 class="demo-title">${isIt ? 'Simulatore Rischio Credito &amp; Engine Workflow' : 'Credit Risk &amp; Workflow Engine Simulator'}</h3>
           <p class="demo-subtitle">${isIt ? 'Modifica i parametri finanziari dell\'impresa per calcolare in tempo reale il punteggio di rischio, la PD (Probabilità di Default) ed il percorso di delibera.' : 'Adjust company financial sliders to evaluate credit score, Default Probability (PD), and automatic decision routing in real-time.'}</p>
         </div>
 
@@ -1647,6 +1754,7 @@ Scenario 2: API Timeout & Resiliency Fallback
         step3.className = 'wf-step approved';
         step3.textContent = isIt ? '3. Delibera Istantanea' : '3. STP Approval';
         step4.className = 'wf-step';
+        step4.textContent = isIt ? '4. Comitato Rischio' : '4. Risk Committee';
       } else if (score >= 520) {
         scoreEl.style.color = 'var(--amber)';
         statusEl.style.color = '#fbbf24';
@@ -1662,6 +1770,7 @@ Scenario 2: API Timeout & Resiliency Fallback
         step3.className = 'wf-step rejected';
         step3.textContent = isIt ? '3. Esito Negativo' : '3. Rejection';
         step4.className = 'wf-step';
+        step4.textContent = isIt ? '4. Comitato Rischio' : '4. Risk Committee';
       }
     }
 
@@ -1724,7 +1833,7 @@ Scenario 2: API Timeout & Resiliency Fallback
       container.innerHTML = `
         <div class="demo-header">
           <div style="display:inline-flex; align-items:center; gap:0.5rem; background:rgba(59,130,246,0.12); color:#60a5fa; padding:4px 10px; border-radius:999px; font-size:0.75rem; font-weight:600; margin-bottom:0.75rem;">
-            <span>⚡</span> ${isIt ? 'Motore di Fluency Linguistica & Analisi CEFR' : 'AI Fluency Engine & CEFR Diagnostic'}
+            <span>⚡</span> ${isIt ? 'Motore di Fluency Linguistica &amp; Analisi CEFR' : 'AI Fluency Engine &amp; CEFR Diagnostic'}
           </div>
           <h3 class="demo-title">Ailingo — English Fluency &amp; Native Polish Simulator</h3>
           <p class="demo-subtitle">${isIt ? 'Testa la correzione a 3 livelli: individua calchi dall\'italiano, genera la formulazione nativa ed estrae regole per la ripetizione spaziata (SRS).' : 'Experience the Triple-Correction loop: detect native-language interference, generate executive phrasing, and extract SRS spaced-repetition atoms.'}</p>
@@ -1732,8 +1841,8 @@ Scenario 2: API Timeout & Resiliency Fallback
 
         <!-- Presets -->
         <div class="preset-chips" style="margin-bottom:1rem;">
-          <button id="ailingo-p1" class="preset-btn active" onclick="setAilingoPreset(1)">${isIt ? '1. Meeting & Budget' : '1. Meeting & Budget'}</button>
-          <button id="ailingo-p2" class="preset-btn" onclick="setAilingoPreset(2)">${isIt ? '2. Deadline & Opinioni' : '2. Deadlines & Opinions'}</button>
+          <button id="ailingo-p1" class="preset-btn active" onclick="setAilingoPreset(1)">${isIt ? '1. Meeting &amp; Budget' : '1. Meeting &amp; Budget'}</button>
+          <button id="ailingo-p2" class="preset-btn" onclick="setAilingoPreset(2)">${isIt ? '2. Deadline &amp; Opinioni' : '2. Deadlines &amp; Opinions'}</button>
           <button id="ailingo-p3" class="preset-btn" onclick="setAilingoPreset(3)">${isIt ? '3. Follow-up Cliente' : '3. Client Follow-up'}</button>
         </div>
 
@@ -1753,13 +1862,24 @@ Scenario 2: API Timeout & Resiliency Fallback
 
           <div style="display:flex; justify-content:flex-end; margin-top:0.6rem;">
             <button onclick="runAilingoAnalysis()" class="btn btn-primary" style="padding:0.45rem 1rem; font-size:0.82rem;">
-              <span>${isIt ? 'Analizza & Perfeziona con IA →' : 'Analyze & Polish with AI →'}</span>
+              <span>${isIt ? 'Analizza &amp; Perfeziona con IA →' : 'Analyze &amp; Polish with AI →'}</span>
             </button>
           </div>
         </div>
 
         <!-- Output Dynamic Container -->
         <div id="ailingo-results"></div>
+
+        <!-- Standalone Platform Banner -->
+        <div style="margin-top:1.2rem; background:linear-gradient(135deg, rgba(37,99,235,0.15) 0%, rgba(139,92,246,0.15) 100%); border:1px solid rgba(59,130,246,0.3); border-radius:12px; padding:1.1rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.8rem;">
+          <div>
+            <div style="font-size:0.88rem; font-weight:700; color:#fff;">${isIt ? '🎙️ Piattaforma Standalone Completa Ailingo' : '🎙️ Full Standalone Ailingo Platform'}</div>
+            <div style="font-size:0.75rem; color:var(--muted);">${isIt ? 'Include Voice Room con Web Speech API, Test Diagnostico CEFR e Spaced Repetition SM-2.' : 'Includes live Web Speech voice room, adaptive CEFR diagnostic &amp; SuperMemo SM-2 SRS deck.'}</div>
+          </div>
+          <a href="https://github.com/MicheleM92/Ailingo" target="_blank" rel="noopener" class="btn btn-primary" style="font-size:0.78rem; padding:0.45rem 0.9rem;">
+            ${isIt ? 'Repository GitHub ↗' : 'GitHub Repo ↗'}
+          </a>
+        </div>
       `;
 
       setAilingoPreset(1);
@@ -1810,7 +1930,6 @@ Scenario 2: API Timeout & Resiliency Fallback
       if (match && match.input.toLowerCase() === inputVal.toLowerCase()) {
         renderAilingoOutput(match);
       } else {
-        // Dynamic analysis for custom input
         renderAilingoCustomOutput(inputVal);
       }
     }
@@ -1843,15 +1962,13 @@ Scenario 2: API Timeout & Resiliency Fallback
           </div>
         </div>
 
-        <!-- Flaws -->
         <div style="margin-bottom:1rem;">
           <div style="font-size:0.75rem; font-weight:700; color:var(--text); text-transform:uppercase; margin-bottom:0.5rem; letter-spacing:0.04em;">
-            ${isIt ? '1. Errori & Calchi Linguistici Rilevati:' : '1. Detected Interference & Grammatical Flaws:'}
+            ${isIt ? '1. Errori &amp; Calchi Linguistici Rilevati:' : '1. Detected Interference &amp; Grammatical Flaws:'}
           </div>
           ${flawsHtml}
         </div>
 
-        <!-- Polished Result -->
         <div style="background:rgba(16,185,129,0.08); border:1px solid rgba(16,185,129,0.25); border-radius:10px; padding:1rem; margin-bottom:1rem;">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
             <span style="font-size:0.75rem; font-weight:700; color:#34d399; text-transform:uppercase; letter-spacing:0.04em;">
@@ -1864,7 +1981,6 @@ Scenario 2: API Timeout & Resiliency Fallback
           <p style="font-size:0.95rem; font-weight:600; color:var(--text); line-height:1.5;">"${polishedText}"</p>
         </div>
 
-        <!-- SRS & Phonetics -->
         <div style="background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:0.75rem 1rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; font-size:0.75rem;">
           <div style="color:var(--muted);">
             <strong style="color:var(--text);">🎙️ Phonetic Insight:</strong> ${preset.phoneticTip}
@@ -1932,6 +2048,19 @@ Scenario 2: API Timeout & Resiliency Fallback
       const ctx = canvas.getContext('2d');
       const scoreEl = document.getElementById('game-score');
 
+      if (activeKeydownListener) {
+        window.removeEventListener('keydown', activeKeydownListener);
+        activeKeydownListener = null;
+      }
+      if (activeKeyupListener) {
+        window.removeEventListener('keyup', activeKeyupListener);
+        activeKeyupListener = null;
+      }
+      if (currentGameLoop) {
+        cancelAnimationFrame(currentGameLoop);
+        currentGameLoop = null;
+      }
+
       let score = 0;
       let gameOver = false;
 
@@ -1950,68 +2079,65 @@ Scenario 2: API Timeout & Resiliency Fallback
       }
 
       function onKeyDown(e) {
+        if (['Space', 'ArrowUp', 'ArrowDown'].includes(e.code)) {
+          e.preventDefault();
+        }
         keys[e.code] = true;
         if (e.code === 'Space') {
           fireBullet();
-          e.preventDefault();
         }
       }
       function onKeyUp(e) { keys[e.code] = false; }
 
+      activeKeydownListener = onKeyDown;
+      activeKeyupListener = onKeyUp;
       window.addEventListener('keydown', onKeyDown);
       window.addEventListener('keyup', onKeyUp);
 
-      // Touch controls setup
       const btnUp = document.getElementById('touch-up');
       const btnDown = document.getElementById('touch-down');
       const btnFire = document.getElementById('touch-fire');
 
       if (btnUp) {
-        btnUp.addEventListener('pointerdown', (e) => { e.preventDefault(); keys['ArrowUp'] = true; });
-        btnUp.addEventListener('pointerup', () => { keys['ArrowUp'] = false; });
+        btnUp.onpointerdown = (e) => { e.preventDefault(); keys['ArrowUp'] = true; };
+        btnUp.onpointerup = () => { keys['ArrowUp'] = false; };
       }
       if (btnDown) {
-        btnDown.addEventListener('pointerdown', (e) => { e.preventDefault(); keys['ArrowDown'] = true; });
-        btnDown.addEventListener('pointerup', () => { keys['ArrowDown'] = false; });
+        btnDown.onpointerdown = (e) => { e.preventDefault(); keys['ArrowDown'] = true; };
+        btnDown.onpointerup = () => { keys['ArrowDown'] = false; };
       }
       if (btnFire) {
-        btnFire.addEventListener('pointerdown', (e) => { e.preventDefault(); fireBullet(); });
+        btnFire.onpointerdown = (e) => { e.preventDefault(); fireBullet(); };
       }
 
       let enemyTimer = 0;
 
       function loop() {
         if (!document.getElementById('arcade-canvas')) {
-          window.removeEventListener('keydown', onKeyDown);
-          window.removeEventListener('keyup', onKeyUp);
+          if (activeKeydownListener) window.removeEventListener('keydown', activeKeydownListener);
+          if (activeKeyupListener) window.removeEventListener('keyup', activeKeyupListener);
           return;
         }
 
-        // Update
         if (!gameOver) {
           if (keys['ArrowUp'] || keys['KeyW']) player.y = Math.max(10, player.y - player.speed);
           if (keys['ArrowDown'] || keys['KeyS']) player.y = Math.min(canvas.height - 30, player.y + player.speed);
 
-          // Update stars
           stars.forEach(st => {
             st.x -= st.s;
             if (st.x < 0) st.x = canvas.width;
           });
 
-          // Update bullets
           bullets.forEach(b => b.x += b.vx);
           bullets = bullets.filter(b => b.x < canvas.width);
 
-          // Spawn enemies
           enemyTimer++;
           if (enemyTimer % 45 === 0) {
             enemies.push({ x: canvas.width, y: Math.random() * (canvas.height - 30) + 10, w: 20, h: 20, vx: 2.5 });
           }
 
-          // Update enemies
           enemies.forEach(en => en.x -= en.vx);
 
-          // Collision detection
           bullets.forEach((b, bi) => {
             enemies.forEach((en, ei) => {
               if (b.x >= en.x && b.x <= en.x + en.w && b.y >= en.y && b.y <= en.y + en.h) {
@@ -2032,11 +2158,9 @@ Scenario 2: API Timeout & Resiliency Fallback
           enemies = enemies.filter(en => en.x > -30);
         }
 
-        // Draw
         ctx.fillStyle = '#050508';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // Draw stars
         ctx.fillStyle = '#ffffff';
         stars.forEach(st => {
           ctx.globalAlpha = st.s / 2.5;
@@ -2044,7 +2168,6 @@ Scenario 2: API Timeout & Resiliency Fallback
         });
         ctx.globalAlpha = 1.0;
 
-        // Draw player ship
         ctx.fillStyle = '#38bdf8';
         ctx.beginPath();
         ctx.moveTo(player.x + player.w, player.y + player.h / 2);
@@ -2054,7 +2177,6 @@ Scenario 2: API Timeout & Resiliency Fallback
         ctx.closePath();
         ctx.fill();
 
-        // Draw bullets
         ctx.fillStyle = '#f59e0b';
         bullets.forEach(b => {
           ctx.beginPath();
@@ -2062,7 +2184,6 @@ Scenario 2: API Timeout & Resiliency Fallback
           ctx.fill();
         });
 
-        // Draw enemies
         ctx.fillStyle = '#ef4444';
         enemies.forEach(en => {
           ctx.fillRect(en.x, en.y, en.w, en.h);
@@ -2087,7 +2208,21 @@ Scenario 2: API Timeout & Resiliency Fallback
       loop();
     }
 
-    // ─── CONTACT FORM HANDLER ───
+    // ─── CONTACT FORM HANDLER WITH CLIPBOARD COPY ───
+    function copyContactToClipboard() {
+      const name = document.getElementById('contact-name').value.trim();
+      const email = document.getElementById('contact-email').value.trim();
+      const msg = document.getElementById('contact-msg').value.trim();
+      const fullText = `From: ${name} (${email})\n\n${msg}`;
+      navigator.clipboard.writeText(fullText).then(() => {
+        const btn = document.getElementById('copy-msg-btn');
+        if (btn) {
+          btn.textContent = "✓ Testo Copiato Negli Appunti!";
+          btn.style.color = "#34d399";
+        }
+      });
+    }
+
     function handleContactSubmit(e) {
       e.preventDefault();
       const isIt = document.documentElement.getAttribute('lang') === 'it';
@@ -2095,7 +2230,7 @@ Scenario 2: API Timeout & Resiliency Fallback
       const feedback = document.getElementById('contact-feedback');
       const botCheck = form.querySelector('[name="_bot_check"]')?.value;
 
-      if (botCheck) return; // Silent discard of bot submissions
+      if (botCheck) return;
 
       const name = document.getElementById('contact-name').value.trim();
       const email = document.getElementById('contact-email').value.trim();
@@ -2103,7 +2238,6 @@ Scenario 2: API Timeout & Resiliency Fallback
 
       if (!name || !email || !msg) return;
 
-      // Compose mailto fallback for instant reliable delivery
       const subject = encodeURIComponent(`[Inquiry] Architectural / Advisory Discussion from ${name}`);
       const body = encodeURIComponent(`Hello Michele,\n\n${msg}\n\nBest regards,\n${name}\nEmail: ${email}`);
       const mailtoUrl = `mailto:michele.minardi.1992@gmail.com?subject=${subject}&body=${body}`;
@@ -2112,13 +2246,22 @@ Scenario 2: API Timeout & Resiliency Fallback
       feedback.style.background = 'rgba(16, 185, 129, 0.12)';
       feedback.style.border = '1px solid rgba(16, 185, 129, 0.3)';
       feedback.style.color = '#34d399';
-      feedback.innerHTML = isIt
-        ? `<strong>Grazie ${name}!</strong> Il tuo client di posta si aprirà ora con la richiesta precompilata. Se preferisci, puoi scrivere direttamente a <em>michele.minardi.1992@gmail.com</em>.`
-        : `<strong>Thank you ${name}!</strong> Your mail client will open now with your formatted inquiry. Alternatively, feel free to ping directly at <em>michele.minardi.1992@gmail.com</em>.`;
-
-      setTimeout(() => {
-        window.location.href = mailtoUrl;
-      }, 600);
+      feedback.innerHTML = `
+        <div style="font-weight:700; margin-bottom:0.4rem;">${isIt ? `Grazie ${name}!` : `Thank you ${name}!`}</div>
+        <div style="font-size:0.8rem; margin-bottom:0.75rem; color:var(--text);">
+          ${isIt 
+            ? `Puoi aprire il messaggio nel tuo client email oppure copiare il testo per inviarlo da Gmail/Outlook.`
+            : `You can launch your default mail client or copy the formatted inquiry to your clipboard.`}
+        </div>
+        <div style="display:flex; gap:0.5rem; justify-content:center; flex-wrap:wrap;">
+          <a href="${mailtoUrl}" class="btn btn-primary" style="font-size:0.78rem; padding:0.4rem 0.8rem;">
+            ${isIt ? 'Apri Client Email ↗' : 'Open Email App ↗'}
+          </a>
+          <button type="button" id="copy-msg-btn" onclick="copyContactToClipboard()" class="btn btn-cv" style="font-size:0.78rem; padding:0.4rem 0.8rem;">
+            ${isIt ? 'Copia Testo negli Appunti' : 'Copy to Clipboard'}
+          </button>
+        </div>
+      `;
     }
   </script>
 </body>
