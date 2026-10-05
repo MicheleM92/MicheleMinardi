@@ -573,10 +573,13 @@
 
     /* ─── REVEAL ANIMATION ─── */
     .reveal {
-      opacity: 0; transform: translateY(20px);
-      transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1);
+      opacity: 1; transform: translateY(0);
+      transition: opacity 0.5s cubic-bezier(0.16,1,0.3,1), transform 0.5s cubic-bezier(0.16,1,0.3,1);
     }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal {
+      opacity: 1; transform: translateY(0);
+      transition: opacity 0.5s cubic-bezier(0.16,1,0.3,1), transform 0.5s cubic-bezier(0.16,1,0.3,1);
+    }
 
     /* ─── RESPONSIVE ─── */
     @media (max-width: 640px) {
@@ -659,19 +662,22 @@
   <section id="hero">
     <div class="hero-grid-bg"></div>
     <div class="container">
-      <div class="flower-wrapper">
-        <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="0.5" style="width:100%;height:100%">
-          <circle cx="50" cy="50" r="15"/><circle cx="50" cy="35" r="15"/>
-          <circle cx="63" cy="42.5" r="15"/><circle cx="63" cy="57.5" r="15"/>
-          <circle cx="50" cy="65" r="15"/><circle cx="37" cy="57.5" r="15"/>
-          <circle cx="37" cy="42.5" r="15"/>
-        </svg>
+      <div style="display:flex; align-items:center; gap:1.25rem; margin-bottom:2rem;">
+        <img src="michele-minardi.png" alt="Michele Minardi" style="width:84px; height:84px; border-radius:50%; object-fit:cover; border:2px solid rgba(255,255,255,0.18); box-shadow:0 8px 24px rgba(0,0,0,0.6);" />
+        <div class="flower-wrapper" style="margin-bottom:0;">
+          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="0.5" style="width:100%;height:100%">
+            <circle cx="50" cy="50" r="15"/><circle cx="50" cy="35" r="15"/>
+            <circle cx="63" cy="42.5" r="15"/><circle cx="63" cy="57.5" r="15"/>
+            <circle cx="50" cy="65" r="15"/><circle cx="37" cy="57.5" r="15"/>
+            <circle cx="37" cy="42.5" r="15"/>
+          </svg>
+        </div>
       </div>
 
       <div class="status-badge">
         <span class="status-dot"></span>
-        <span class="en">Available for Q4 2026 Advisory &amp; AI Engineering</span>
-        <span class="it">Disponibile per Advisory &amp; AI Engineering Q4 2026</span>
+        <span class="en">Imola, Italy · Open to remote / relocation · Available for Technical BA &amp; AI Engineering</span>
+        <span class="it">Imola, Italia · Disponibile a remoto / relocation · Technical BA &amp; AI Engineering</span>
       </div>
 
       <h1 class="hero-title">
@@ -708,24 +714,24 @@
   <div class="container reveal">
     <div class="stats-bar">
       <div class="stat-item">
-        <div class="stat-number">3+</div>
-        <div class="stat-label en">Years as Tech BA</div>
-        <div class="stat-label it">Anni come Tech BA</div>
+        <div class="stat-number">8+</div>
+        <div class="stat-label en">Years Across Business, Data &amp; Finance</div>
+        <div class="stat-label it">Anni tra Business, Dati &amp; Finanza</div>
       </div>
       <div class="stat-item">
-        <div class="stat-number">7+</div>
-        <div class="stat-label en">Years Total Exp.</div>
-        <div class="stat-label it">Anni di Esperienza</div>
+        <div class="stat-number">3+</div>
+        <div class="stat-label en">Years as Tech BA (Moltiply)</div>
+        <div class="stat-label it">Anni come Tech BA (Moltiply)</div>
       </div>
       <div class="stat-item">
         <div class="stat-number">12K+</div>
-        <div class="stat-label en">Community Built</div>
-        <div class="stat-label it">Community Creata</div>
+        <div class="stat-label en">Followers (OpenPrometeo)</div>
+        <div class="stat-label it">Follower (OpenPrometeo)</div>
       </div>
       <div class="stat-item">
-        <div class="stat-number">3</div>
-        <div class="stat-label en">Countries Worked</div>
-        <div class="stat-label it">Paesi di Lavoro</div>
+        <div class="stat-number">110L</div>
+        <div class="stat-label en">MSc Cum Laude (UniBo)</div>
+        <div class="stat-label it">Laurea 110 e Lode (UniBo)</div>
       </div>
     </div>
   </div>
@@ -797,18 +803,20 @@
           </div>
           <p class="exp-company">Moltiply Group · Italy</p>
           <ul class="exp-bullets en">
-            <li class="exp-bullet">Designed end-to-end digital processes for business lending platforms (SME loans, credit lines, guaranteed financing) in Agile environments.</li>
-            <li class="exp-bullet">Translated business needs into process maps, User Stories and acceptance criteria in Azure DevOps for delivery teams.</li>
-            <li class="exp-bullet">Coordinated frontend/backend delivery, API integrations and SFTP data exchanges between proprietary platforms and external partners.</li>
-            <li class="exp-bullet">Built SQL (MS SQL Server) reports and Power BI dashboards to monitor SLAs, queues, KPIs and process performance.</li>
-            <li class="exp-bullet">Leveraged GenAI tools (Microsoft 365 Copilot, Claude, Antigravity) to accelerate requirements drafting, documentation and data analysis.</li>
+            <li class="exp-bullet"><strong>Digital platforms &amp; process design</strong>: Design and digitalize end-to-end workflows for corporate lending and other data-intensive processes, working across business, operations and technology teams.</li>
+            <li class="exp-bullet"><strong>Requirements &amp; product delivery</strong>: Analyze business needs and existing processes, translating them into functional requirements, process rules and Azure DevOps User Stories.</li>
+            <li class="exp-bullet"><strong>End-to-end delivery</strong>: Work across lifecycle from requirements and grooming through Figma validation, functional/UAT testing, release coordination and post-deployment verification.</li>
+            <li class="exp-bullet"><strong>Systems &amp; integrations</strong>: Define requirements and coordinate API/SFTP integrations between proprietary platforms, internal systems, major European banking/financial-services clients and external providers.</li>
+            <li class="exp-bullet"><strong>Data, automation &amp; operations</strong>: Use advanced SQL and data-analysis tools to investigate issues, validate data flows and support automated/semi-automated imports, recurring reporting, recovery/reprocessing and production controls, on datasets up to ~65K rows and ~2,500 positions.</li>
+            <li class="exp-bullet"><strong>AI-enabled workflows</strong>: Use GenAI for requirements, documentation, data handling, process analysis and rapid prototyping; Python is used mainly for data handling and AI-assisted automation.</li>
           </ul>
           <ul class="exp-bullets it">
-            <li class="exp-bullet">Progettazione di processi digitali end-to-end per piattaforme di finanziamento alle PMI (prestiti, linee di credito, finanziamenti garantiti) in contesti Agile.</li>
-            <li class="exp-bullet">Traduzione dei bisogni di business in User Stories e criteri di accettazione in Azure DevOps per i team di delivery.</li>
-            <li class="exp-bullet">Coordinamento di frontend/backend, integrazioni API e scambi dati SFTP tra piattaforme proprietarie e partner esterni.</li>
-            <li class="exp-bullet">Sviluppo di report SQL e dashboard Power BI per il monitoraggio di SLA, code operative e KPI di processo.</li>
-            <li class="exp-bullet">Utilizzo di tool di AI generativa (Microsoft 365 Copilot, Claude, Antigravity) per velocizzare documentazione, requisiti e analisi dati.</li>
+            <li class="exp-bullet"><strong>Piattaforme digitali &amp; process design</strong>: Progetto e digitalizzo workflow end-to-end per corporate lending e altri processi ad alta intensità di dati, lavorando tra business, operations e team tecnologici.</li>
+            <li class="exp-bullet"><strong>Requirements &amp; product delivery</strong>: Analizzo esigenze di business e processi esistenti, traducendoli in requisiti funzionali, regole di processo e User Stories su Azure DevOps.</li>
+            <li class="exp-bullet"><strong>Delivery end-to-end</strong>: Seguo il ciclo da requirements e grooming a validazione Figma, test funzionali/UAT, coordinamento release e verifiche post-deploy.</li>
+            <li class="exp-bullet"><strong>Sistemi &amp; integrazioni</strong>: Definisco requisiti e coordino integrazioni API/SFTP tra piattaforme proprietarie, sistemi interni, importanti clienti bancari/financial-services europei e fornitori esterni.</li>
+            <li class="exp-bullet"><strong>Dati, automazione &amp; operations</strong>: Uso SQL avanzato e strumenti di analisi per investigare anomalie, validare flussi dati e supportare import automatizzati/semi-automatizzati, reporting ricorrente, recovery/reprocessing e controlli di produzione, su dataset fino a ~65K righe e ~2.500 posizioni.</li>
+            <li class="exp-bullet"><strong>Workflow assistiti da AI</strong>: Uso GenAI per requisiti, documentazione, analisi di processo e prototipazione rapida; Python soprattutto per data handling e automazioni leggere.</li>
           </ul>
         </div>
 
@@ -995,27 +1003,37 @@
         </div>
 
         <!-- Project 4: OpenPrometeo -->
-        <a href="https://www.instagram.com/openprometeo_" target="_blank" rel="noopener noreferrer" class="proj-card reveal">
+        <div class="proj-card reveal">
           <div class="proj-banner banner-purple">
-            <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18v-9h9"/></svg>
           </div>
           <div class="proj-body">
             <div class="proj-top">
               <span class="proj-name">OpenPrometeo</span>
-              <span class="proj-year">12K+ Followers</span>
+              <span class="proj-year">12K+ Community</span>
             </div>
-            <p class="proj-desc en">Philosophy &amp; visual mental models channel exploring cognitive frameworks, psychology and aesthetics.</p>
-            <p class="proj-desc it">Canale Instagram su filosofia e modelli mentali per il decision making, psicologia ed estetica visiva.</p>
+            <p class="proj-desc en">Philosophy, visual mental models &amp; presence hub. Daily frameworks exploring cognitive clarity, psychology and mindfulness.</p>
+            <p class="proj-desc it">Hub su arte, filosofia e rituali di presenza. Canale da oltre 12K follower su modelli mentali per decision-making e consapevolezza.</p>
             <div class="proj-footer">
               <div class="proj-tags">
                 <span class="proj-tag">Mental Models</span>
                 <span class="proj-tag">Visual Art</span>
+                <span class="proj-tag">Philosophy Hub</span>
               </div>
-              <span class="proj-link en">View Channel ↗</span>
-              <span class="proj-link it">Apri Canale ↗</span>
+            </div>
+            <div style="display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap;">
+              <a href="openprometeo.html" class="proj-action-btn" style="flex: 1; min-width: 130px; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(45, 212, 191, 0.15), rgba(56, 189, 248, 0.15)); border: 1px solid rgba(45, 212, 191, 0.35); color: #2dd4bf;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+                <span class="en">Explore Hub ↗</span>
+                <span class="it">Esplora Hub ↗</span>
+              </a>
+              <a href="https://www.instagram.com/openprometeo_" target="_blank" rel="noopener noreferrer" class="proj-action-btn" style="flex: 1; min-width: 130px; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; background: rgba(225, 48, 108, 0.1); border: 1px solid rgba(225, 48, 108, 0.3); color: #fca5a5;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                <span>Instagram ↗</span>
+              </a>
             </div>
           </div>
-        </a>
+        </div>
 
         <!-- Project 5: Games -->
         <div class="proj-card reveal">
@@ -1075,6 +1093,7 @@
             <span class="skill-chip">SQL (MS SQL Server)</span>
             <span class="skill-chip">Python</span>
             <span class="skill-chip">Power BI</span>
+            <span class="skill-chip">Prefect (Workflows)</span>
             <span class="skill-chip">Apache Superset</span>
           </div>
         </div>
@@ -1146,6 +1165,14 @@
             <span class="exp-date">2015 — 2016</span>
           </div>
           <p class="exp-company">Anglo-American University, Prague</p>
+        </div>
+        <div class="exp-item reveal">
+          <div class="exp-meta">
+            <h3 class="exp-title en">Thesis Research Period</h3>
+            <h3 class="exp-title it">Periodo di Ricerca Tesi</h3>
+            <span class="exp-date">2016</span>
+          </div>
+          <p class="exp-company">San Diego, California · Quantitative &amp; Statistical Modeling</p>
         </div>
         <div class="exp-item reveal">
           <div class="exp-meta">
@@ -1339,13 +1366,20 @@
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry, i) => {
         if (entry.isIntersecting) {
-          entry.target.style.transitionDelay = `${(i % 4) * 0.07}s`;
+          entry.target.style.transitionDelay = `${(i % 4) * 0.05}s`;
           entry.target.classList.add('visible');
           observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.12 });
+    }, { threshold: 0.02, rootMargin: "0px 0px 50px 0px" });
     reveals.forEach(e => observer.observe(e));
+    // Safety reveal: after 400ms ensure anything near viewport is marked visible
+    setTimeout(() => {
+      reveals.forEach(e => {
+        const rect = e.getBoundingClientRect();
+        if (rect.top < window.innerHeight + 200) e.classList.add('visible');
+      });
+    }, 350);
 
     // ─── INTERACTIVE DEMO SUITE ───
     let currentGameLoop = null;
@@ -1379,9 +1413,12 @@
     }
 
     function handleCvDownload(e) {
+      if (e) e.preventDefault();
+      const currentLang = document.documentElement.getAttribute('lang') || 'en';
+      const filename = currentLang === 'it' ? 'Michele_Minardi_CV_IT.pdf' : 'Michele_Minardi_CV.pdf';
       const link = document.createElement('a');
-      link.href = 'Michele_Minardi_CV.pdf';
-      link.download = 'Michele_Minardi_CV.pdf';
+      link.href = filename;
+      link.download = filename;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -1543,13 +1580,17 @@
         </div>
 
         <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
-          <a href="Michele_Minardi_CV.pdf" download="Michele_Minardi_CV.pdf" class="btn btn-primary" style="flex:1; justify-content:center;">
+          <a href="Michele_Minardi_CV_IT.pdf" download="Michele_Minardi_CV_IT.pdf" class="btn btn-primary" style="flex:1; justify-content:center; min-width:180px;">
             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-            ${isIt ? 'Download Diretto PDF' : 'Direct Download PDF'}
+            ${isIt ? 'Scarica CV Italiano (PDF)' : 'Download Italian CV (PDF)'}
           </a>
-          <button onclick="window.print()" class="btn btn-cv" style="flex:1; justify-content:center;">
+          <a href="Michele_Minardi_CV.pdf" download="Michele_Minardi_CV.pdf" class="btn btn-cv" style="flex:1; justify-content:center; min-width:180px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+            ${isIt ? 'Scarica CV Inglese (PDF)' : 'Download English CV (PDF)'}
+          </a>
+          <button onclick="window.print()" class="btn btn-ghost" style="flex:1; justify-content:center; min-width:140px;">
             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>
-            ${isIt ? 'Stampa / Salva in PDF' : 'Print / Save Web PDF'}
+            ${isIt ? 'Stampa Web' : 'Print Web'}
           </button>
         </div>
       `;
